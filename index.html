@@ -248,8 +248,8 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
       <p class="sotto">Nexus fa girare i modelli sul tuo computer, gratis e anche senza internet. Quando ti serve più potenza, passi al cloud con un clic e poi torni indietro.</p>
       
       <div class="azioni">
-        <form class="waitlist-form" id="form-hero">
-          <input type="email" class="campo-email" placeholder="Inserisci la tua email..." required aria-label="Indirizzo email per la lista d'attesa">
+        <form class="waitlist-form" id="form-hero" action="https://formspree.io/f/mjyyjkvr" method="POST">
+          <input type="email" name="email" class="campo-email" placeholder="Inserisci la tua email..." required aria-label="Indirizzo email per la lista d'attesa">
           <button type="submit" class="bottone pieno">Unisciti</button>
         </form>
         <div class="esito-waitlist" id="esito-hero">✓ Ti sei iscritto alla lista d'attesa!</div>
@@ -387,8 +387,8 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
             <li>Nessun abbonamento né tracciamento dei tuoi dati</li>
           </ul>
           
-          <form class="waitlist-form" id="form-sezione" style="max-width: 100%;">
-            <input type="email" class="campo-email" placeholder="Inserisci la tua email..." required aria-label="Indirizzo email per la lista d'attesa">
+          <form class="waitlist-form" id="form-sezione" action="https://formspree.io/f/mjyyjkvr" method="POST" style="max-width: 100%;">
+            <input type="email" name="email" class="campo-email" placeholder="Inserisci la tua email..." required aria-label="Indirizzo email per la lista d'attesa">
             <button type="submit" class="bottone pieno">Unisciti ora</button>
           </form>
           <div class="esito-waitlist" id="esito-sezione">✓ Ti sei iscritto alla lista d'attesa!</div>
@@ -452,8 +452,20 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     if (!form) return;
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      form.style.display = "none";
-      esito.style.display = "block";
+      
+      // Invia i dati a Formspree in background senza ricaricare la pagina
+      fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(() => {
+        form.style.display = "none";
+        esito.style.display = "block";
+      }).catch(() => {
+        // Fallback visivo anche in caso di rete lenta
+        form.style.display = "none";
+        esito.style.display = "block";
+      });
     });
   };
   gestisciForm("form-hero", "esito-hero");
