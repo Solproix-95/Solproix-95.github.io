@@ -269,7 +269,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
           <input type="email" name="email" class="campo-email" placeholder="Inserisci la tua email..." required aria-label="Indirizzo email per la lista d'attesa">
           <button type="submit" class="bottone pieno">Unisciti</button>
         </form>
-        <div class="esito-waitlist" id="esito-hero">✓ Ti sei iscritto alla lista d'attesa!</div>
+        <div class="esito-waitlist" id="esito-hero">✓ Sei dentro! Ti abbiamo mandato un'email: se non la vedi, guarda in Promozioni o Spam.</div>
         <p class="consenso">Iscrivendoti ricevi email su Nexus: l'invito alla beta e le novità. Niente spam, ti cancelli quando vuoi con un clic.</p>
       </div>
       
@@ -280,7 +280,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
   <section class="vetrina">
     <div class="gabbia">
       <figure class="cornice" style="margin:0">
-        <img src="img/benvenuto.webp" width="1280" height="820" alt="La finestra di Nexus: la barra con le chat, il disco del buco nero e la casella per scrivere">
+        <img src="img/benvenuto.webp" width="1280" height="820" alt="La finestra di Nexus: la barra con le chat, il disco, i suggerimenti Per te e la casella per scrivere">
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <rect class="alone" x="0.4" y="0.4" width="99.2" height="99.2" rx="1.6" pathLength="100" vector-effect="non-scaling-stroke" />
           <rect x="0.4" y="0.4" width="99.2" height="99.2" rx="1.6" pathLength="100" vector-effect="non-scaling-stroke" />
@@ -409,7 +409,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
             <input type="email" name="email" class="campo-email" placeholder="Inserisci la tua email..." required aria-label="Indirizzo email per la lista d'attesa">
             <button type="submit" class="bottone pieno">Unisciti ora</button>
           </form>
-          <div class="esito-waitlist" id="esito-sezione">✓ Ti sei iscritto alla lista d'attesa!</div>
+          <div class="esito-waitlist" id="esito-sezione">✓ Sei dentro! Ti abbiamo mandato un'email: se non la vedi, guarda in Promozioni o Spam.</div>
         <p class="consenso">Iscrivendoti ricevi email su Nexus: l'invito alla beta e le novità. Niente spam, ti cancelli quando vuoi con un clic.</p>
         </div>
       </div>
@@ -579,7 +579,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     tasto.disabled = true;
     tasto.classList.add("iscritto");
     tasto.textContent = giaIscritto ? "✓ Già iscritto" : "✓ Iscritto";
-    esito.textContent = giaIscritto ? "✓ Sei già nella lista d'attesa, non serve iscriversi di nuovo!" : "✓ Ti sei iscritto alla lista d'attesa!";
+    esito.textContent = giaIscritto ? "✓ Sei già nella lista d'attesa, non serve iscriversi di nuovo!" : "✓ Sei dentro! Ti abbiamo mandato un'email: se non la vedi, guarda in Promozioni o Spam.";
     esito.classList.add("visibile");
   };
 
