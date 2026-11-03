@@ -114,6 +114,21 @@ p { margin: 0; }
 .campo-email::placeholder { color: var(--tenue); }
 .esito-waitlist { font-family: var(--mono); font-size: 13px; color: var(--iri-b); margin-top: 6px; display: none; }
 
+
+/* ---------- stato iscritto + contatore ---------- */
+.bottone.iscritto { background: linear-gradient(90deg, var(--iri-a), var(--iri-b), var(--iri-c)); background-size: 200% 100%; color: #0b0b0e;
+  cursor: default; pointer-events: none; animation: lucePulsa 2.4s ease-in-out infinite, scorriGradiente 6s linear infinite; }
+@keyframes lucePulsa { 0%, 100% { box-shadow: 0 0 14px -2px var(--iri-b), 0 0 28px -8px var(--iri-c); } 50% { box-shadow: 0 0 26px 2px var(--iri-b), 0 0 52px -2px var(--iri-c); } }
+@keyframes scorriGradiente { to { background-position: 200% 0; } }
+.campo-email:disabled { opacity: 0.75; cursor: default; border-color: var(--iri-b); }
+.esito-waitlist.visibile { display: block; animation: sali 0.6s var(--morbido) both; }
+.contatore { text-align: center; padding-block: 96px 104px; display: none; }
+.contatore.pronto { display: block; }
+.contatore .numero-grande { font-family: var(--display); font-weight: 800; font-size: clamp(72px, 16vw, 200px); line-height: 1; letter-spacing: -0.04em;
+  background: linear-gradient(90deg, var(--iri-a), var(--iri-b), var(--iri-c)); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 28px color-mix(in srgb, var(--iri-b), transparent 65%)); margin-block: 14px 10px; font-variant-numeric: tabular-nums; }
+.contatore p { color: var(--tenue); font-size: 18px; max-width: 30em; margin-inline: auto; }
+
 /* ---------- apertura ---------- */
 .apertura { position: relative; border-bottom: 1px solid var(--linea); overflow: hidden; }
 #disco { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
@@ -409,6 +424,14 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
       </div>
     </div>
   </section>
+  <section class="contatore" id="contatore" aria-live="polite">
+    <div class="gabbia">
+      <span class="etichetta">Lista d'attesa</span>
+      <div class="numero-grande" id="numero-iscritti">0</div>
+      <p>persone si sono già iscritte alla lista d'attesa di <span class="serif">Nexus</span>. Manchi solo tu.</p>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -446,43 +469,126 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     }
   });
 
-  // Gestione form con controllo LocalStorage (memoria browser) per evitare invii multipli
-  const gestisciForm = (formId, esitoId) => {
-    const form = document.getElementById(formId);
-    const esito = document.getElementById(esitoId);
-    if (!form || !esito) return;
+  // ============================================================
+  //  LISTA D'ATTESA + CONTATORE ISCRITTI UNICI
+  //  Per attivare il contatore: compila questi due valori (vedi guida Firebase).
+  //  Finché sono vuoti il sito funziona comunque (solo Formspree) e il contatore resta nascosto.
+  // ============================================================
+  const FIREBASE_PROJECT_ID = "";
+  const FIREBASE_API_KEY = "";
+  const contatoreAttivo = !!(FIREBASE_PROJECT_ID && FIREBASE_API_KEY);
+  const FS_BASE = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents`;
 
-    // Se l'utente si era già iscritto in precedenza da questo browser, mostra subito il messaggio confermato
-    if (localStorage.getItem("nexus_iscritto") === "true") {
-      form.style.display = "none";
-      esito.style.display = "block";
-      esito.textContent = "✓ Sei già registrato nella lista d'attesa!";
-      return;
-    }
+  const salvaLocale = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+  const leggiLocale = (k) => { try { return localStorage.getItem(k); } catch { return null; } };
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      
-      fetch(form.action, {
-        method: form.method,
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      }).then(() => {
-        localStorage.setItem("nexus_iscritto", "true");
-        form.style.display = "none";
-        esito.style.display = "block";
-        esito.textContent = "✓ Ti sei iscritto alla lista d'attesa!";
-      }).catch(() => {
-        localStorage.setItem("nexus_iscritto", "true");
-        form.style.display = "none";
-        esito.style.display = "block";
-        esito.textContent = "✓ Ti sei iscritto alla lista d'attesa!";
-      });
-    });
+  // ID anonimo e uguale per la stessa email (maiuscole/spazi ignorati): evita i doppioni
+  const impronta = async (email) => {
+    const dati = new TextEncoder().encode("nexus|" + email.trim().toLowerCase());
+    const h = await crypto.subtle.digest("SHA-256", dati);
+    return [...new Uint8Array(h)].map((b) => b.toString(16).padStart(2, "0")).join("");
   };
 
-  gestisciForm("form-hero", "esito-hero");
-  gestisciForm("form-sezione", "esito-sezione");
+  // Registra l'email: "nuovo" | "esistente" | "errore"
+  const registraUnico = async (email) => {
+    if (!contatoreAttivo) return "nuovo";
+    try {
+      const id = await impronta(email);
+      const r = await fetch(`${FS_BASE}/iscritti?documentId=${id}&key=${FIREBASE_API_KEY}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fields: { creato: { timestampValue: new Date().toISOString() } } })
+      });
+      if (r.ok) return "nuovo";
+      if (r.status === 409) return "esistente";
+      return "errore";
+    } catch { return "errore"; }
+  };
+
+  const leggiConteggio = async () => {
+    const r = await fetch(`${FS_BASE}:runAggregationQuery?key=${FIREBASE_API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ structuredAggregationQuery: {
+        structuredQuery: { from: [{ collectionId: "iscritti" }] },
+        aggregations: [{ alias: "totale", count: {} }] } })
+    });
+    const d = await r.json();
+    return parseInt(d[0].result.aggregateFields.totale.integerValue, 10) || 0;
+  };
+
+  const sezioneContatore = document.getElementById("contatore");
+  const numeroEl = document.getElementById("numero-iscritti");
+  let valoreMostrato = 0;
+  const animaNumero = (a, b) => {
+    if (piano || a === b) { numeroEl.textContent = b.toLocaleString("it-IT"); valoreMostrato = b; return; }
+    const t0 = performance.now(), durata = 1400;
+    const passo = (t) => {
+      const p = Math.min(1, (t - t0) / durata), e = 1 - Math.pow(1 - p, 3);
+      numeroEl.textContent = Math.round(a + (b - a) * e).toLocaleString("it-IT");
+      if (p < 1) requestAnimationFrame(passo); else valoreMostrato = b;
+    };
+    requestAnimationFrame(passo);
+  };
+  const aggiornaContatore = async () => {
+    if (!contatoreAttivo) return;
+    try {
+      const n = await leggiConteggio();
+      sezioneContatore.classList.add("pronto");
+      animaNumero(valoreMostrato, n);
+    } catch {}
+  };
+  aggiornaContatore();
+  setInterval(aggiornaContatore, 60000);
+
+  // Stato "iscritto": campo bloccato + bottone che si illumina
+  const mostraIscritto = (form, esito, email, giaIscritto) => {
+    const campo = form.querySelector("input[type=email]");
+    const tasto = form.querySelector("button");
+    if (email) campo.value = email;
+    campo.disabled = true;
+    tasto.disabled = true;
+    tasto.classList.add("iscritto");
+    tasto.textContent = giaIscritto ? "✓ Già iscritto" : "✓ Iscritto";
+    esito.textContent = giaIscritto ? "✓ Sei già nella lista d'attesa, non serve iscriversi di nuovo!" : "✓ Ti sei iscritto alla lista d'attesa!";
+    esito.classList.add("visibile");
+  };
+
+  const forms = [["form-hero", "esito-hero"], ["form-sezione", "esito-sezione"]]
+    .map(([f, e]) => [document.getElementById(f), document.getElementById(e)]).filter(([f, e]) => f && e);
+
+  const iscrittoSuTutti = (email, giaIscritto) => forms.forEach(([f, e]) => mostraIscritto(f, e, email, giaIscritto));
+
+  // Già iscritto da questo browser: mostra subito lo stato illuminato
+  if (leggiLocale("nexus_iscritto") === "true") iscrittoSuTutti(leggiLocale("nexus_email") || "", true);
+
+  forms.forEach(([form, esito]) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const campo = form.querySelector("input[type=email]");
+      const tasto = form.querySelector("button");
+      const email = campo.value.trim();
+      if (!email) return;
+      tasto.disabled = true; tasto.textContent = "Un attimo…";
+
+      const stato = await registraUnico(email);
+
+      if (stato === "esistente") {
+        // Email già in lista: non la reinvio e non la conto due volte
+        salvaLocale("nexus_iscritto", "true"); salvaLocale("nexus_email", email);
+        iscrittoSuTutti(email, true);
+        return;
+      }
+
+      // Email nuova (o contatore non attivo): la mando a Formspree come prima
+      try {
+        await fetch(form.action, { method: form.method, body: new FormData(form), headers: { Accept: "application/json" } });
+      } catch {}
+      salvaLocale("nexus_iscritto", "true"); salvaLocale("nexus_email", email);
+      iscrittoSuTutti(email, false);
+      aggiornaContatore();
+    });
+  });
 
   const tela = document.getElementById("disco");
   const ctx = tela.getContext("2d");
