@@ -113,6 +113,7 @@ p { margin: 0; }
 .campo-email:focus { outline: none; border-color: var(--iri-c); }
 .campo-email::placeholder { color: var(--tenue); }
 .consenso { font-size: 12.5px; color: var(--tenue); margin: 10px 0 0; max-width: 460px; line-height: 1.5; }
+#form-sezione ~ .consenso { max-width: 100%; }
 .esito-waitlist { font-family: var(--mono); font-size: 13px; color: var(--iri-b); margin-top: 6px; display: none; }
 
 
@@ -398,7 +399,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
           <span class="etichetta">Nexus · Versione Beta</span>
           <h3 style="font-size:32px; font-weight:800; margin-block: 10px 18px;">Riserva il tuo posto</h3>
           <ul class="incluso">
-            <li>Accesso prioritario alle prima release per Windows, Mac e Linux</li>
+            <li>Accesso prioritario alla prima release per Windows, Mac e Linux</li>
             <li>Locale e cloud integrati in un'unica interfaccia</li>
             <li>Memoria locale, banco di lavoro e ricerca sul web</li>
             <li>Nessun abbonamento né tracciamento dei tuoi dati</li>
@@ -480,8 +481,8 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
   // MailerLite: le iscrizioni vanno nella lista e parte da sola l'email di benvenuto.
   // I due numeri si leggono nel codice del modulo su MailerLite: assets.mailerlite.com/jsonp/ACCOUNT/forms/MODULO/subscribe
   // Finche' sono vuoti si usa solo Formspree, come prima.
-  const MAILERLITE_ACCOUNT = "";
-  const MAILERLITE_MODULO = "";
+  const MAILERLITE_ACCOUNT = "2766212";
+  const MAILERLITE_MODULO = "203141249530594456";
   const mailerliteAttivo = !!(MAILERLITE_ACCOUNT && MAILERLITE_MODULO);
 
   // Manda l'email a MailerLite. true = arrivata, false = non e' andata (si riprova).
@@ -497,9 +498,8 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
       const d = await r.json().catch(() => ({ success: true }));
       return d.success !== false;
     } catch {
-      // se il browser non puo' leggere la risposta, la richiesta parte comunque: la rimando "alla cieca"
-      if (!navigator.onLine) return false;
-      try { await fetch(url, { method: "POST", body: dati, mode: "no-cors" }); return true; } catch { return false; }
+      // se il browser non puo' leggere la risposta (CORS), la richiesta e' comunque arrivata a MailerLite
+      return navigator.onLine;
     }
   };
 
