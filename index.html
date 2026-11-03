@@ -112,6 +112,7 @@ p { margin: 0; }
   font-size: 15px; color: var(--testo); border-radius: 0; transition: border-color 0.25s ease; }
 .campo-email:focus { outline: none; border-color: var(--iri-c); }
 .campo-email::placeholder { color: var(--tenue); }
+.consenso { font-size: 12.5px; color: var(--tenue); margin: 10px 0 0; max-width: 460px; line-height: 1.5; }
 .esito-waitlist { font-family: var(--mono); font-size: 13px; color: var(--iri-b); margin-top: 6px; display: none; }
 
 
@@ -268,6 +269,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
           <button type="submit" class="bottone pieno">Unisciti</button>
         </form>
         <div class="esito-waitlist" id="esito-hero">✓ Ti sei iscritto alla lista d'attesa!</div>
+        <p class="consenso">Iscrivendoti ricevi email su Nexus: l'invito alla beta e le novità. Niente spam, ti cancelli quando vuoi con un clic.</p>
       </div>
       
       <p class="garanzie"><span>Accesso anticipato</span><span>Niente spam</span><span>I tuoi dati restano tuoi</span></p>
@@ -407,6 +409,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
             <button type="submit" class="bottone pieno">Unisciti ora</button>
           </form>
           <div class="esito-waitlist" id="esito-sezione">✓ Ti sei iscritto alla lista d'attesa!</div>
+        <p class="consenso">Iscrivendoti ricevi email su Nexus: l'invito alla beta e le novità. Niente spam, ti cancelli quando vuoi con un clic.</p>
         </div>
       </div>
     </div>
@@ -474,6 +477,32 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
   //  Per attivare il contatore: compila questi due valori (vedi guida Firebase).
   //  Finché sono vuoti il sito funziona comunque (solo Formspree) e il contatore resta nascosto.
   // ============================================================
+  // MailerLite: le iscrizioni vanno nella lista e parte da sola l'email di benvenuto.
+  // I due numeri si leggono nel codice del modulo su MailerLite: assets.mailerlite.com/jsonp/ACCOUNT/forms/MODULO/subscribe
+  // Finche' sono vuoti si usa solo Formspree, come prima.
+  const MAILERLITE_ACCOUNT = "";
+  const MAILERLITE_MODULO = "";
+  const mailerliteAttivo = !!(MAILERLITE_ACCOUNT && MAILERLITE_MODULO);
+
+  // Manda l'email a MailerLite. true = arrivata, false = non e' andata (si riprova).
+  const iscriviMailerlite = async (email) => {
+    const url = `https://assets.mailerlite.com/jsonp/${MAILERLITE_ACCOUNT}/forms/${MAILERLITE_MODULO}/subscribe`;
+    const dati = new FormData();
+    dati.append("fields[email]", email);
+    dati.append("ml-submit", "1");
+    dati.append("anticsrf", "true");
+    try {
+      const r = await fetch(url, { method: "POST", body: dati, headers: { Accept: "application/json" } });
+      if (!r.ok) return false;
+      const d = await r.json().catch(() => ({ success: true }));
+      return d.success !== false;
+    } catch {
+      // se il browser non puo' leggere la risposta, la richiesta parte comunque: la rimando "alla cieca"
+      if (!navigator.onLine) return false;
+      try { await fetch(url, { method: "POST", body: dati, mode: "no-cors" }); return true; } catch { return false; }
+    }
+  };
+
   const FIREBASE_PROJECT_ID = "";
   const FIREBASE_API_KEY = "";
   const contatoreAttivo = !!(FIREBASE_PROJECT_ID && FIREBASE_API_KEY);
@@ -580,10 +609,19 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
         return;
       }
 
-      // Email nuova (o contatore non attivo): la mando a Formspree come prima
+      // Email nuova (o contatore non attivo): MailerLite (se attivo) e Formspree, che vi avvisa via email
+      let andata = true;
+      if (mailerliteAttivo) andata = await iscriviMailerlite(email);
       try {
-        await fetch(form.action, { method: form.method, body: new FormData(form), headers: { Accept: "application/json" } });
-      } catch {}
+        const r = await fetch(form.action, { method: form.method, body: new FormData(form), headers: { Accept: "application/json" } });
+        if (!mailerliteAttivo) andata = r.ok;
+      } catch { if (!mailerliteAttivo) andata = false; }
+      if (!andata) {
+        tasto.disabled = false; tasto.textContent = "Riprova";
+        esito.textContent = "Ops, non è andata. Controlla la connessione e riprova tra poco.";
+        esito.classList.add("visibile");
+        return;
+      }
       salvaLocale("nexus_iscritto", "true"); salvaLocale("nexus_email", email);
       iscrittoSuTutti(email, false);
       aggiornaContatore();
