@@ -1,11 +1,11 @@
-<!doctype html> 
+<!doctype html>
 <html lang="it">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Nexus: la tua IA sul tuo PC, con i modelli locali e quelli nel cloud. 4,99 euro, una volta sola.">
-<title>Nexus</title>
-<link rel="icon" href="./logo.png">
+<meta name="description" content="Nexus: la tua IA sul tuo PC, con i modelli locali e quelli nel cloud. Unisciti alla lista d'attesa per l'accesso anticipato.">
+<title>Nexus — Lista d'attesa</title>
+<link rel="icon" href="img/logo.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +13,6 @@
 </head>
 <body>
 <style>
-/* Layout: un osservatorio notturno. Campo nero, griglia di celle a linea sottile, il disco del buco nero
-   come unica luce; i colori iridescenti del disco compaiono solo dove c'e' "energia" (disco, linea, prezzo). */
 :root {
   --notte: #07070a; --pannello: #0d0d11; --linea: #1d1c23; --testo: #ece9e3; --tenue: #8e8b95; --tasto: #f1ede4;
   --tasto-testo: #0b0b0e; --iri-a: #ff5f86; --iri-b: #ffb46a; --iri-c: #6fd3ff; --vetro: rgba(13, 13, 17, 0.72);
@@ -43,7 +41,6 @@
   color-scheme: dark;
 }
 
-/* colori registrati: cosi' possono sfumare dolcemente quando cambia il tema */
 @property --notte { syntax: "<color>"; inherits: true; initial-value: #000; }
 @property --pannello { syntax: "<color>"; inherits: true; initial-value: #000; }
 @property --linea { syntax: "<color>"; inherits: true; initial-value: #000; }
@@ -56,7 +53,7 @@
 @property --iri-c { syntax: "<color>"; inherits: true; initial-value: #000; }
 @property --vetro { syntax: "<color>"; inherits: true; initial-value: #000; }
 :root.sfuma { transition: --notte 0.6s ease, --pannello 0.6s ease, --linea 0.6s ease, --testo 0.6s ease, --tenue 0.6s ease, --tasto 0.6s ease, --tasto-testo 0.6s ease, --iri-a 0.6s ease, --iri-b 0.6s ease, --iri-c 0.6s ease, --vetro 0.6s ease; }
-/* il cambio tema, dove il browser lo permette, si apre a cerchio dal bottone */
+
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-old(root) { z-index: 1; }
 ::view-transition-new(root) { z-index: 2; }
@@ -106,10 +103,16 @@ p { margin: 0; }
 .bottone:active { transform: translateY(0) scale(0.97); }
 .bottone.pieno:hover { box-shadow: 0 10px 30px -12px var(--iri-b); }
 .bottone svg { transition: transform 0.35s var(--morbido); }
-.bottone:hover svg { transform: translateY(2px); }
-.bottone[aria-disabled="true"]:hover { transform: none; box-shadow: none; }
-.bottone.vuoto:hover { border-color: var(--tenue); }
+.bottone:hover svg { transform: translateY(0); }
 .bottone.piccolo { padding: 9px 14px; font-size: 11.5px; }
+
+/* ---------- modulo lista d'attesa ---------- */
+.waitlist-form { display: flex; gap: 10px; width: 100%; max-width: 460px; margin-top: 10px; }
+.campo-email { flex: 1; background: var(--pannello); border: 1px solid var(--linea); padding: 14px 18px; font-family: var(--corpo);
+  font-size: 15px; color: var(--testo); border-radius: 0; transition: border-color 0.25s ease; }
+.campo-email:focus { outline: none; border-color: var(--iri-c); }
+.campo-email::placeholder { color: var(--tenue); }
+.esito-waitlist { font-family: var(--mono); font-size: 13px; color: var(--iri-b); margin-top: 6px; display: none; }
 
 /* ---------- apertura ---------- */
 .apertura { position: relative; border-bottom: 1px solid var(--linea); overflow: hidden; }
@@ -120,11 +123,11 @@ p { margin: 0; }
 .parola { display: inline-block; animation: sali 1s var(--morbido) both; }
 @keyframes sali { from { transform: translateY(18px); } }
 .apertura .sotto { max-width: 34em; color: var(--tenue); font-size: 18px; }
-.azioni { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.azioni { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
 .garanzie { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--tenue); text-transform: uppercase;
   display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; }
 
-/* ---------- vetrina: la schermata con la linea che corre ---------- */
+/* ---------- vetrina ---------- */
 .vetrina { border-bottom: 1px solid var(--linea); padding-block: 64px; }
 .cornice { position: relative; max-width: 1000px; margin-inline: auto; }
 .cornice img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--linea); }
@@ -160,7 +163,6 @@ p { margin: 0; }
 .elenco li.paga { color: var(--tenue); border-style: dashed; }
 .punto { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: var(--iri-c); box-shadow: 0 0 12px var(--iri-c); }
 
-/* l'orbita disegnata dal vivo */
 .orbita-grande { width: 100%; max-width: 220px; aspect-ratio: 1; margin: 6px auto; }
 .orbita-grande circle { fill: none; }
 
@@ -174,13 +176,10 @@ p { margin: 0; }
 /* ---------- passi ---------- */
 .passo .numero { font-family: var(--mono); font-size: 13px; color: var(--iri-b); }
 
-/* ---------- prezzo ---------- */
-.prezzo { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); border-top: 1px solid var(--linea); border-left: 1px solid var(--linea); margin-bottom: 72px; }
-.prezzo > div { border-right: 1px solid var(--linea); border-bottom: 1px solid var(--linea); padding: 36px; background: var(--pannello); min-width: 0; }
-.cifra { font-family: var(--display); font-size: clamp(84px, 13vw, 168px); line-height: 0.9; font-weight: 800; letter-spacing: -0.05em;
-  background: linear-gradient(100deg, var(--iri-a), var(--iri-b) 45%, var(--iri-c)); -webkit-background-clip: text; background-clip: text; color: transparent;
-  font-variant-numeric: tabular-nums; }
-.incluso { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+/* ---------- sezione iscrizione ---------- */
+.iscrizione { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--linea); border-left: 1px solid var(--linea); margin-bottom: 72px; }
+.iscrizione > div { border-right: 1px solid var(--linea); border-bottom: 1px solid var(--linea); padding: 42px; background: var(--pannello); min-width: 0; }
+.incluso { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 12px; }
 .incluso li { display: flex; gap: 12px; align-items: baseline; }
 .incluso li::before { content: "+"; font-family: var(--mono); color: var(--iri-b); }
 
@@ -199,7 +198,6 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
 
 footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-block: 32px 48px; }
 
-/* entrata allo scroll: solo un piccolo spostamento, il testo e' sempre visibile */
 .entra:not(.cella) { transition: translate 0.9s var(--morbido) var(--ritardo, 0ms); }
 .pronto .entra { translate: 0 26px; }
 .pronto .entra.vista { translate: 0 0; }
@@ -207,10 +205,10 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
 @media (max-width: 860px) {
   .voci { display: none; }
   .celle { --colonne: 1 !important; }
-  .prezzo { grid-template-columns: minmax(0, 1fr); }
   .apertura .gabbia { padding-block: 84px 56px; }
   .cella { padding: 22px; }
-  .prezzo > div { padding: 26px; }
+  .iscrizione > div { padding: 26px; }
+  .waitlist-form { flex-direction: column; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -229,15 +227,15 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
 
 <header class="testata">
   <div class="gabbia">
-    <a class="marchio" href="#inizio"><img src="./logo.png" alt="">Nexus</a>
+    <a class="marchio" href="#inizio"><img src="img/logo.png" alt="">Nexus</a>
     <nav class="voci" aria-label="Sezioni">
-      <a href="#due-mondi">Locale e cloud</a><a href="#funzioni">Funzioni</a><a href="#prezzo">Prezzo</a><a href="#domande">Domande</a>
+      <a href="#due-mondi">Locale e cloud</a><a href="#funzioni">Funzioni</a><a href="#lista-attesa">Lista d'attesa</a><a href="#domande">Domande</a>
     </nav>
     <button class="tema" id="tema" type="button" aria-label="Cambia tema">
       <svg class="luna" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       <svg class="sole" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
     </button>
-    <a class="bottone pieno piccolo" href="#prezzo">Scarica</a>
+    <a class="bottone pieno piccolo" href="#lista-attesa">Unisciti</a>
   </div>
 </header>
 
@@ -248,20 +246,23 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
       <span class="etichetta">Windows · Mac · Linux</span>
       <h1><span class="parola">La tua IA.</span><span class="serif parola" style="animation-delay:.12s">Sul tuo PC.</span></h1>
       <p class="sotto">Nexus fa girare i modelli sul tuo computer, gratis e anche senza internet. Quando ti serve più potenza, passi al cloud con un clic e poi torni indietro.</p>
+      
       <div class="azioni">
-        <a class="bottone pieno" href="#prezzo">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M6 11l6 6 6-6M4 21h16"/></svg>
-          Scarica Nexus · 4,99 €</a>
-        <a class="bottone vuoto" href="#funzioni">Guarda cosa sa fare</a>
+        <form class="waitlist-form" id="form-hero">
+          <input type="email" class="campo-email" placeholder="Inserisci la tua email..." required aria-label="Indirizzo email per la lista d'attesa">
+          <button type="submit" class="bottone pieno">Unisciti</button>
+        </form>
+        <div class="esito-waitlist" id="esito-hero">✓ Ti sei iscritto alla lista d'attesa!</div>
       </div>
-      <p class="garanzie"><span>Un solo pagamento</span><span>Niente abbonamento</span><span>I tuoi dati restano tuoi</span></p>
+      
+      <p class="garanzie"><span>Accesso anticipato</span><span>Niente spam</span><span>I tuoi dati restano tuoi</span></p>
     </div>
   </section>
 
   <section class="vetrina">
     <div class="gabbia">
       <figure class="cornice" style="margin:0">
-        <img src="./benvenuto.webp" width="1280" height="820" alt="La finestra di Nexus: la barra con le chat, il disco del buco nero e la casella per scrivere">
+        <img src="img/benvenuto.webp" width="1280" height="820" alt="La finestra di Nexus: la barra con le chat, il disco del buco nero e la casella per scrivere">
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <rect class="alone" x="0.4" y="0.4" width="99.2" height="99.2" rx="1.6" pathLength="100" vector-effect="non-scaling-stroke" />
           <rect x="0.4" y="0.4" width="99.2" height="99.2" rx="1.6" pathLength="100" vector-effect="non-scaling-stroke" />
@@ -313,7 +314,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
         <article class="cella entra" style="grid-column: span 2">
           <div class="testa-cella"><span class="etichetta">Costellazione</span><span class="etichetta">PC · gratis · a pagamento</span></div>
           <h3>Scegli chi risponde.</h3>
-          <img src="./costellazione.webp" width="1280" height="820" loading="lazy" alt="Il pannello Costellazione con i ruoli e i modelli di Ollama e LM Studio">
+          <img src="img/costellazione.webp" width="1280" height="820" loading="lazy" alt="Il pannello Costellazione con i ruoli e i modelli di Ollama e LM Studio">
         </article>
         <article class="cella entra">
           <span class="etichetta">Orbita</span>
@@ -344,7 +345,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
         <article class="cella entra" style="grid-column: span 2">
           <div class="testa-cella"><span class="etichetta">Codice</span><span class="etichetta">Python · GDScript · JS · C# …</span></div>
           <h3>Programma con te.</h3>
-          <img src="./risposta.webp" width="1280" height="820" loading="lazy" alt="Una risposta di Nexus con un blocco di codice Python colorato e il tasto Copia">
+          <img src="img/risposta.webp" width="1280" height="820" loading="lazy" alt="Una risposta di Nexus con un blocco di codice Python colorato e il tasto Copia">
         </article>
         <article class="cella entra">
           <span class="etichetta">Ragiona · Impegno</span>
@@ -362,33 +363,35 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
         <h2>Tre passi, <span class="serif">cinque minuti.</span></h2>
       </div>
       <div class="celle" style="--colonne:3">
-        <article class="cella passo entra"><span class="numero">01</span><h3>Scarica e apri.</h3><p>Un installer leggero, senza bisogno di essere amministratore.</p></article>
+        <article class="cella passo entra"><span class="numero">01</span><h3>Iscriviti alla lista.</h3><p>Riceverai un invito per scaricare Nexus appena sarà pronta la versione Beta.</p></article>
         <article class="cella passo entra"><span class="numero">02</span><h3>Nexus trova i tuoi modelli.</h3><p>Se hai già Ollama o LM Studio li usa subito; se no ti dice quali scaricare per il tuo PC.</p></article>
         <article class="cella passo entra"><span class="numero">03</span><h3>Se vuoi, collega il cloud.</h3><p>Una chiave gratuita di NVIDIA, Groq o Gemini e hai anche i modelli più grandi.</p></article>
       </div>
     </div>
   </section>
 
-  <section class="sezione" id="prezzo">
+  <section class="sezione" id="lista-attesa">
     <div class="gabbia">
       <div class="testa-sezione entra">
-        <span class="etichetta">Prezzo</span>
-        <h2>Lo paghi <span class="serif">una volta.</span></h2>
+        <span class="etichetta">Accesso Anticipato</span>
+        <h2>Entra prima <span class="serif">degli altri.</span></h2>
       </div>
-      <div class="prezzo">
+      <div class="iscrizione">
         <div class="entra">
-          <span class="etichetta">Nexus · licenza personale</span>
-          <p class="cifra">4,99&nbsp;€</p>
-          <p class="tenue" style="color:var(--tenue)">Una volta sola. Gli aggiornamenti sono compresi.</p>
-        </div>
-        <div class="entra" style="display:grid;gap:22px;align-content:start">
+          <span class="etichetta">Nexus · Versione Beta</span>
+          <h3 style="font-size:32px; font-weight:800; margin-block: 10px 18px;">Riserva il tuo posto</h3>
           <ul class="incluso">
-            <li>Locale e cloud nella stessa app</li><li>Tutti i server locali e qualsiasi servizio cloud</li>
-            <li>Memoria, appunti e ricerca online</li><li>Banco di lavoro sui tuoi progetti</li>
-            <li>Windows, Mac e Linux</li><li>Nessun abbonamento, nessun account</li>
+            <li>Accesso prioritario alle prima release per Windows, Mac e Linux</li>
+            <li>Locale e cloud integrati in un'unica interfaccia</li>
+            <li>Memoria locale, banco di lavoro e ricerca sul web</li>
+            <li>Nessun abbonamento né tracciamento dei tuoi dati</li>
           </ul>
-          <span class="bottone pieno" role="link" aria-disabled="true" style="cursor:default">Presto disponibile</span>
-          <span class="etichetta">I modelli cloud a pagamento si pagano a parte, al loro servizio</span>
+          
+          <form class="waitlist-form" id="form-sezione" style="max-width: 100%;">
+            <input type="email" class="campo-email" placeholder="Inserisci la tua email..." required aria-label="Indirizzo email per la lista d'attesa">
+            <button type="submit" class="bottone pieno">Unisciti ora</button>
+          </form>
+          <div class="esito-waitlist" id="esito-sezione">✓ Ti sei iscritto alla lista d'attesa!</div>
         </div>
       </div>
     </div>
@@ -396,13 +399,13 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
 
   <section class="sezione" id="domande">
     <div class="gabbia">
-      <div class="testa-sezione entra"><span class="etichetta">Domande</span><h2>Prima di <span class="serif">scaricare.</span></h2></div>
+      <div class="testa-sezione entra"><span class="etichetta">Domande</span><h2>Prima di <span class="serif">iscriverti.</span></h2></div>
       <div class="domande">
-        <details><summary>Serve internet?</summary><p>No. Nella sezione Locale Nexus funziona anche offline, con i modelli che girano sul tuo PC. Internet serve solo per la sezione Cloud e per cercare online.</p></details>
+        <details><summary>Quando potrò scaricare Nexus?</summary><p>Stiamo rifinendo le prime versioni. Iscrivendoti alla lista d'attesa sarai tra i primi a ricevere il link di download della Beta non appena disponibile.</p></details>
+        <details><summary>Serve internet per usarlo?</summary><p>No. Nella sezione Locale Nexus funziona anche offline, con i modelli che girano sul tuo PC. Internet serve solo per la sezione Cloud e per cercare online.</p></details>
         <details><summary>Che computer serve?</summary><p>Con 16 GB di RAM girano bene modelli fino a 9 miliardi di parametri. Con meno memoria si usano modelli più piccoli, oppure il cloud.</p></details>
-        <details><summary>Devo pagare anche i modelli?</summary><p>I modelli locali sono gratuiti. Nel cloud ci sono servizi con un piano gratis generoso (NVIDIA, Groq, Gemini…); quelli a pagamento li paghi direttamente a loro, con la tua chiave.</p></details>
-        <details><summary>È un abbonamento?</summary><p>No. Paghi 4,99 € una volta e Nexus è tuo, aggiornamenti compresi.</p></details>
-        <details><summary>Dove finiscono le mie chat?</summary><p>In una cartella sul tuo PC, in Documenti. Nexus non ha un server suo e non vede quello che scrivi.</p></details>
+        <details><summary>Quanto costerà Nexus al lancio?</summary><p>Nexus sarà accessibile con una formula ad acquisto singolo a un prezzo contenuto, senza abbonamenti mensili ricorrenti.</p></details>
+        <details><summary>Dove finiscono le mie chat?</summary><p>In una cartella sul tuo PC, nei tuoi Documenti. Nexus non ha un server proprietario e non vede quello che scrivi.</p></details>
       </div>
     </div>
   </section>
@@ -410,7 +413,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
 
 <footer>
   <div class="gabbia">
-    <a class="marchio" href="#inizio"><img src="./logo.png" alt="">Nexus</a>
+    <a class="marchio" href="#inizio"><img src="img/logo.png" alt="">Nexus</a>
     <span class="etichetta">© 2026 Nexus · fatto in Italia</span>
   </div>
 </footer>
@@ -419,7 +422,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
 (() => {
   const radice = document.documentElement;
   const piano = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // tema: chiaro / scuro (ricordato su questo browser)
+
   const tastoTema = document.getElementById("tema"), sistemaChiaro = matchMedia("(prefers-color-scheme: light)");
   let salvato = null;
   try { salvato = localStorage.getItem("nexus-tema"); } catch {}
@@ -432,20 +435,30 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     const cambia = () => { radice.dataset.theme = prossimo; };
     if (piano) return cambia();
     if (document.startViewTransition) {
-      // il nuovo tema si allarga a cerchio a partire dal bottone
       const b = tastoTema.getBoundingClientRect(), x = b.left + b.width / 2, y = b.top + b.height / 2;
       const fine = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
       document.startViewTransition(cambia).ready.then(() => radice.animate(
         { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${fine}px at ${x}px ${y}px)`] },
         { duration: 800, easing: "cubic-bezier(0.22, 1, 0.36, 1)", pseudoElement: "::view-transition-new(root)" })).catch(() => {});
     } else {
-      // altrimenti i colori sfumano da soli
       radice.classList.add("sfuma"); cambia();
       setTimeout(() => radice.classList.remove("sfuma"), 700);
     }
   });
 
-  // il disco del buco nero: particelle iridescenti in vortice, si piega verso il mouse
+  const gestisciForm = (formId, esitoId) => {
+    const form = document.getElementById(formId);
+    const esito = document.getElementById(esitoId);
+    if (!form) return;
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      form.style.display = "none";
+      esito.style.display = "block";
+    });
+  };
+  gestisciForm("form-hero", "esito-hero");
+  gestisciForm("form-sezione", "esito-sezione");
+
   const tela = document.getElementById("disco");
   const ctx = tela.getContext("2d");
   let caso = 11;
@@ -493,7 +506,6 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
   }
   requestAnimationFrame(disegna);
 
-  // l'orbita della scheda: si riempie e si svuota piano, come durante una chat
   const arco = document.getElementById("arco"), pianeta = document.getElementById("pianeta"), percento = document.getElementById("percento");
   function orbita(adesso) {
     const f = piano ? 0.35 : 0.12 + 0.6 * (0.5 - 0.5 * Math.cos(adesso / 2600));
@@ -505,13 +517,11 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
   }
   requestAnimationFrame(orbita);
 
-  // le celle si illuminano sotto il mouse
   document.querySelectorAll(".cella").forEach((c) => c.addEventListener("pointermove", (e) => {
     const b = c.getBoundingClientRect();
     c.style.setProperty("--x", `${e.clientX - b.left}px`); c.style.setProperty("--y", `${e.clientY - b.top}px`);
   }));
 
-  // allo scroll i blocchi salgono al loro posto (il testo resta sempre leggibile)
   if (!piano && "IntersectionObserver" in window) {
     const sotto = [...document.querySelectorAll(".entra")].filter((el) => el.getBoundingClientRect().top > innerHeight);
     radice.classList.add("pronto");
@@ -522,7 +532,6 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     sotto.forEach((el, i) => { el.style.setProperty("--ritardo", `${(i % 3) * 70}ms`); osserva.observe(el); });
   }
 
-  // il menu evidenzia la sezione che stai guardando
   const voci = new Map([...document.querySelectorAll(".voci a")].map((a) => [a.getAttribute("href").slice(1), a]));
   if ("IntersectionObserver" in window) {
     const spia = new IntersectionObserver((es) => es.forEach((e) => {
@@ -533,12 +542,10 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     voci.forEach((_, id) => { const sez = document.getElementById(id); if (sez) spia.observe(sez); });
   }
 
-  // la testata prende un'ombra appena si scorre
   const testata = document.querySelector(".testata");
   const scorri = () => testata.classList.toggle("scesa", scrollY > 8);
   addEventListener("scroll", scorri, { passive: true }); scorri();
 
-  // le domande si aprono e si chiudono con un'animazione in altezza
   document.querySelectorAll("details").forEach((d) => {
     const titolo = d.querySelector("summary"); let anim = null;
     titolo.addEventListener("click", (e) => {
