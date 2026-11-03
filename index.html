@@ -446,11 +446,13 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     }
   });
 
+  // Gestione form con controllo LocalStorage (memoria browser) per evitare invii multipli
   const gestisciForm = (formId, esitoId) => {
     const form = document.getElementById(formId);
     const esito = document.getElementById(esitoId);
     if (!form || !esito) return;
 
+    // Se l'utente si era già iscritto in precedenza da questo browser, mostra subito il messaggio confermato
     if (localStorage.getItem("nexus_iscritto") === "true") {
       form.style.display = "none";
       esito.style.display = "block";
