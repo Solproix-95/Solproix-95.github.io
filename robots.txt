@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://solproix-95.github.io/sitemap.xml
