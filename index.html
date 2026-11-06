@@ -17,12 +17,19 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/logo.png">
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<meta name="theme-color" content="#07070a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f2ee" media="(prefers-color-scheme: light)">
+<link rel="apple-touch-icon" href="img/logo.png">
+<link rel="preload" href="font/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/geist.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
 <style>
+/* font ospitati sul sito: niente richieste a Google, solo caratteri latini (italiano incluso) */
+@font-face { font-family: "Bricolage Grotesque"; src: url(font/bricolage.woff2) format("woff2"); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: "Geist"; src: url(font/geist.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url(font/geist-mono.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url(font/instrument-serif-italic.woff2) format("woff2"); font-style: italic; font-weight: 400; font-display: swap; }
 :root {
   --notte: #07070a; --pannello: #0d0d11; --linea: #1d1c23; --testo: #ece9e3; --tenue: #8e8b95; --tasto: #f1ede4;
   --tasto-testo: #0b0b0e; --iri-a: #ff5f86; --iri-b: #ffb46a; --iri-c: #6fd3ff; --vetro: rgba(13, 13, 17, 0.72);
@@ -91,7 +98,7 @@ p { margin: 0; }
 .marchio img { width: 28px; height: 28px; border-radius: 8px; }
 .voci { display: flex; gap: 20px; margin-left: auto; }
 .voci a { position: relative; padding-block: 6px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--tenue); text-decoration: none; transition: color 0.25s ease; }
+  color: var(--tenue); text-decoration: none; transition: color 0.25s ease; white-space: nowrap; }
 .voci a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; transform: scaleX(0); transform-origin: right;
   background: linear-gradient(90deg, var(--iri-a), var(--iri-b), var(--iri-c)); transition: transform 0.45s var(--morbido); }
 .voci a:hover, .voci a.attiva { color: var(--testo); }
@@ -179,6 +186,7 @@ p { margin: 0; }
 .cella::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s;
   background: radial-gradient(320px circle at var(--x, 50%) var(--y, 50%), color-mix(in srgb, var(--iri-c) 10%, transparent), transparent 70%); }
 .cella:hover::after { opacity: 1; }
+.cella.larga { grid-column: span 2; }
 .cella h3 { font-size: 26px; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; }
 .cella p { color: var(--tenue); }
 .cella img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--linea); display: block; }
@@ -204,7 +212,7 @@ p { margin: 0; }
 .passo .numero { font-family: var(--mono); font-size: 13px; color: var(--iri-b); }
 
 /* ---------- sezione iscrizione ---------- */
-.iscrizione { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--linea); border-left: 1px solid var(--linea); margin-bottom: 72px; }
+.iscrizione { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); border-top: 1px solid var(--linea); border-left: 1px solid var(--linea); margin-bottom: 72px; }
 .iscrizione > div { border-right: 1px solid var(--linea); border-bottom: 1px solid var(--linea); padding: 42px; background: var(--pannello); min-width: 0; }
 .incluso { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 12px; }
 .incluso li { display: flex; gap: 12px; align-items: baseline; }
@@ -223,19 +231,78 @@ summary:hover::after { color: var(--testo); }
 details[open]:not([data-chiudendo]) summary::after { rotate: 45deg; }
 details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
 
-footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-block: 32px 48px; }
+/* ---------- video ---------- */
+.schermo { margin: 0 0 72px; position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--linea); background: #050507;
+  box-shadow: 0 40px 90px -50px color-mix(in srgb, var(--iri-b), transparent 40%); }
+.schermo video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #050507; }
+
+/* ---------- confronto ---------- */
+.tabella-scorre { overflow-x: auto; margin-bottom: 72px; border: 1px solid var(--linea); background: var(--pannello); }
+.confronto { width: 100%; border-collapse: collapse; min-width: 560px; }
+.confronto th, .confronto td { padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--linea); vertical-align: top; }
+.confronto tbody tr:last-child > * { border-bottom: 0; }
+.confronto thead th { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); font-weight: 500; }
+.confronto tbody th { font-weight: 500; width: 34%; }
+.confronto td { color: var(--tenue); font-size: 15px; }
+.confronto .nostro { background: color-mix(in srgb, var(--pannello), var(--iri-b) 7%); color: var(--testo); }
+.confronto thead .nostro { color: var(--testo); font-family: var(--display); font-size: 18px; letter-spacing: -0.01em; text-transform: none; font-weight: 700; }
+.si::before, .no::before, .forse::before { display: inline-block; width: 1.3em; font-family: var(--mono); }
+.si::before { content: "✓"; color: var(--iri-c); }
+.no::before { content: "–"; }
+.forse::before { content: "~"; color: var(--iri-b); }
+@media (max-width: 640px) {
+  .tabella-scorre { overflow: visible; border: 0; background: none; }
+  .confronto { min-width: 0; }
+  .confronto thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .confronto tbody, .confronto th, .confronto td { display: block; }
+  .confronto tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--linea); background: var(--pannello); margin-bottom: 10px; }
+  .confronto tbody th { grid-column: 1 / -1; width: auto; border-bottom: 1px solid var(--linea) !important; padding: 14px 14px 12px; }
+  .confronto td { border-bottom: 0; padding: 12px 14px; font-size: 14px; }
+  .confronto td::before { content: attr(data-col); display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--tenue); margin-bottom: 4px; }
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- tabella di marcia ---------- */
+.marcia { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 0; }
+.marcia li { position: relative; padding: 0 0 26px 30px; display: grid; gap: 4px; }
+.marcia li::before { content: ""; position: absolute; left: 4px; top: 7px; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--tenue); background: var(--pannello); z-index: 1; }
+.marcia li::after { content: ""; position: absolute; left: 8px; top: 18px; bottom: 0; width: 1px; background: var(--linea); }
+.marcia li:last-child { padding-bottom: 0; }
+.marcia li:last-child::after { display: none; }
+.marcia li.ora::before { border-color: var(--iri-b); background: var(--iri-b); box-shadow: 0 0 12px var(--iri-b); }
+.marcia .quando { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); }
+.marcia li.ora .quando { color: var(--iri-b); }
+.marcia strong { font-family: var(--display); font-size: 20px; letter-spacing: -0.01em; }
+.marcia p { color: var(--tenue); font-size: 15px; }
+.consenso a { color: var(--testo); text-underline-offset: 3px; }
+
+/* ---------- piè di pagina ---------- */
+.piede .gabbia { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; padding-block: 48px 40px; align-items: start; }
+.piede-marchio p { color: var(--tenue); font-size: 14.5px; margin-top: 10px; max-width: 28em; }
+.piede-voci { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.piede-voci a { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tenue); text-decoration: none; transition: color 0.25s ease; }
+.piede-voci a:hover { color: var(--testo); }
+.piede-fondo { grid-column: 1 / -1; padding-top: 20px; border-top: 1px solid var(--linea); }
 
 .entra:not(.cella) { transition: translate 0.9s var(--morbido) var(--ritardo, 0ms); }
 .pronto .entra { translate: 0 26px; }
 .pronto .entra.vista { translate: 0 0; }
 
-@media (max-width: 860px) {
+@media (max-width: 1060px) {
   .voci { display: none; }
+  .testata .tema { margin-left: auto; }
+}
+@media (max-width: 860px) {
   .celle { --colonne: 1 !important; }
+  .cella.larga { grid-column: auto; }
   .apertura .gabbia { padding-block: 84px 56px; }
   .cella { padding: 22px; }
   .iscrizione > div { padding: 26px; }
   .waitlist-form { flex-direction: column; }
+  .iscrizione { grid-template-columns: minmax(0, 1fr); }
+  .piede .gabbia { grid-template-columns: minmax(0, 1fr); }
+  .confronto th, .confronto td { padding: 14px 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -254,9 +321,9 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
 
 <header class="testata">
   <div class="gabbia">
-    <a class="marchio" href="#inizio"><img src="img/logo.png" alt="">Nexus</a>
+    <a class="marchio" href="#inizio"><img src="img/logo.webp" width="28" height="28" alt="">Nexus</a>
     <nav class="voci" aria-label="Sezioni">
-      <a href="#due-mondi">Locale e cloud</a><a href="#funzioni">Funzioni</a><a href="#lista-attesa">Lista d'attesa</a><a href="#domande">Domande</a>
+      <a href="#film">Video</a><a href="#due-mondi">Locale e cloud</a><a href="#funzioni">Funzioni</a><a href="#confronto">Confronto</a><a href="#lista-attesa">Lista d'attesa</a><a href="#domande">Domande</a>
     </nav>
     <button class="tema" id="tema" type="button" aria-label="Cambia tema">
       <svg class="luna" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -280,7 +347,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
           <button type="submit" class="bottone pieno">Unisciti</button>
         </form>
         <div class="esito-waitlist" id="esito-hero">✓ Sei dentro! Ti abbiamo mandato un'email: se non la vedi, guarda in Promozioni o Spam.</div>
-        <p class="consenso">Iscrivendoti ricevi email su Nexus: l'invito alla beta e le novità. Niente spam, ti cancelli quando vuoi con un clic.</p>
+        <p class="consenso">Iscrivendoti ricevi email su Nexus: l'invito alla beta e le novità. Niente spam, ti cancelli quando vuoi con un clic. <a href="privacy.html">Privacy</a>.</p>
       </div>
       
       <p class="garanzie"><span>Accesso anticipato</span><span>Niente spam</span><span>I tuoi dati restano tuoi</span></p>
@@ -290,13 +357,29 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
   <section class="vetrina">
     <div class="gabbia">
       <figure class="cornice" style="margin:0">
-        <img src="img/benvenuto.webp" width="1280" height="820" alt="La finestra di Nexus: la barra con le chat, il disco, i suggerimenti Per te e la casella per scrivere">
+        <img src="img/benvenuto.webp" width="1280" height="820" fetchpriority="high" alt="La finestra di Nexus: la barra con le chat, il disco, i suggerimenti Per te e la casella per scrivere">
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <rect class="alone" x="0.4" y="0.4" width="99.2" height="99.2" rx="1.6" pathLength="100" vector-effect="non-scaling-stroke" />
           <rect x="0.4" y="0.4" width="99.2" height="99.2" rx="1.6" pathLength="100" vector-effect="non-scaling-stroke" />
         </svg>
       </figure>
       <div class="didascalia"><span class="etichetta">Mentre Nexus pensa, una linea di luce corre intorno alla casella</span><span class="etichetta">llama3.2:3b · 30.0 token/s</span></div>
+    </div>
+  </section>
+
+  <section class="sezione" id="film">
+    <div class="gabbia">
+      <div class="testa-sezione entra">
+        <span class="etichetta">Il film · 40 secondi</span>
+        <h2>Guardala <span class="serif">in azione.</span></h2>
+        <p>Dalla prima domanda al codice, dal tuo PC al cloud e ritorno: ecco come lavora Nexus.</p>
+      </div>
+      <figure class="schermo entra">
+        <video id="video-nexus" width="1920" height="1080" poster="video/nexus-poster.jpg" muted playsinline loop preload="none" controls
+          aria-label="Video di presentazione di Nexus, senza audio">
+          <source src="video/nexus.mp4" type="video/mp4">
+        </video>
+      </figure>
     </div>
   </section>
 
@@ -339,7 +422,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
         <p>Scrive, programma, cerca online, ricorda le cose importanti e lavora sui file dei tuoi progetti. Sempre con la tua approvazione.</p>
       </div>
       <div class="celle" style="--colonne:3">
-        <article class="cella entra" style="grid-column: span 2">
+        <article class="cella entra larga">
           <div class="testa-cella"><span class="etichetta">Costellazione</span><span class="etichetta">PC · gratis · a pagamento</span></div>
           <h3>Scegli chi risponde.</h3>
           <img src="img/costellazione.webp" width="1280" height="820" loading="lazy" alt="Il pannello Costellazione con i ruoli e i modelli di Ollama e LM Studio">
@@ -370,7 +453,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
           <h3>"Esplora Amazon."</h3>
           <p>Scrivi un link o il nome di un sito: Nexus trova l'indirizzo, legge la pagina e cita le fonti.</p>
         </article>
-        <article class="cella entra" style="grid-column: span 2">
+        <article class="cella entra larga">
           <div class="testa-cella"><span class="etichetta">Codice</span><span class="etichetta">Python · GDScript · JS · C# …</span></div>
           <h3>Programma con te.</h3>
           <img src="img/risposta.webp" width="1280" height="820" loading="lazy" alt="Una risposta di Nexus con un blocco di codice Python colorato e il tasto Copia">
@@ -380,6 +463,29 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
           <h3>Ci pensa su quando serve.</h3>
           <p>Il ragionamento resta nascosto: un clic e lo leggi. Nel cloud scegli l'impegno, da basso a extra.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione" id="confronto">
+    <div class="gabbia">
+      <div class="testa-sezione entra">
+        <span class="etichetta">Confronto</span>
+        <h2>Il meglio <span class="serif">dei due mondi.</span></h2>
+        <p>I chatbot nel browser hanno i modelli più grandi, le app locali la privacy. Nexus mette insieme le due cose.</p>
+      </div>
+      <div class="tabella-scorre entra">
+        <table class="confronto">
+          <thead><tr><th scope="col"><span class="sr">Caratteristica</span></th><th scope="col" class="nostro">Nexus</th><th scope="col">Chatbot nel browser</th><th scope="col">App solo locali</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Funziona senza internet</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="no">No</span></td><td data-col="App solo locali"><span class="si">Sì</span></td></tr>
+            <tr><th scope="row">Le chat restano sul tuo PC</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="no">No</span></td><td data-col="App solo locali"><span class="si">Sì</span></td></tr>
+            <tr><th scope="row">Modelli enormi nel cloud</th><td class="nostro" data-col="Nexus"><span class="si">Sì, anche gratis</span></td><td data-col="Chatbot nel browser"><span class="si">Sì</span></td><td data-col="App solo locali"><span class="no">Di solito no</span></td></tr>
+            <tr><th scope="row">Se finiscono i messaggi gratis passa a un altro servizio</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="no">No</span></td><td data-col="App solo locali"><span class="no">No</span></td></tr>
+            <tr><th scope="row">Lavora sui file dei tuoi progetti, con il tuo sì</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="forse">Dipende</span></td><td data-col="App solo locali"><span class="forse">Dipende</span></td></tr>
+            <tr><th scope="row">Costo</th><td class="nostro" data-col="Nexus">Acquisto singolo</td><td data-col="Chatbot nel browser">Spesso un abbonamento</td><td data-col="App solo locali">Spesso gratis</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -420,7 +526,15 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
             <button type="submit" class="bottone pieno">Unisciti ora</button>
           </form>
           <div class="esito-waitlist" id="esito-sezione">✓ Sei dentro! Ti abbiamo mandato un'email: se non la vedi, guarda in Promozioni o Spam.</div>
-        <p class="consenso">Iscrivendoti ricevi email su Nexus: l'invito alla beta e le novità. Niente spam, ti cancelli quando vuoi con un clic.</p>
+          <p class="consenso">Iscrivendoti ricevi email su Nexus: l'invito alla beta e le novità. Niente spam, ti cancelli quando vuoi con un clic. <a href="privacy.html">Come trattiamo i tuoi dati</a>.</p>
+        </div>
+        <div class="entra">
+          <span class="etichetta">A che punto siamo</span>
+          <ol class="marcia">
+            <li class="ora"><span class="quando">Adesso</span><strong>Ultimi ritocchi</strong><p>Nexus funziona già, come vedi nelle immagini: stiamo rifinendo i dettagli e la lista d'attesa è aperta.</p></li>
+            <li><span class="quando">Prossimo passo</span><strong>Beta per chi è in lista</strong><p>Ti arriva un'email con il link per scaricarla. Con "Dai un parere" ci dici cosa sistemare prima.</p></li>
+            <li><span class="quando">Poi</span><strong>Versione 1.0</strong><p>Per Windows, Mac e Linux, con un acquisto singolo e senza abbonamento.</p></li>
+          </ol>
         </div>
       </div>
     </div>
@@ -448,10 +562,20 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
 
 </main>
 
-<footer>
+<footer class="piede">
   <div class="gabbia">
-    <a class="marchio" href="#inizio"><img src="img/logo.png" alt="">Nexus</a>
-    <span class="etichetta">© 2026 Nexus · fatto in Italia</span>
+    <div class="piede-marchio">
+      <a class="marchio" href="#inizio"><img src="img/logo.webp" width="28" height="28" alt="">Nexus</a>
+      <p>L'IA sul tuo PC, gratis e in italiano. Locale quando vuoi, cloud quando serve.</p>
+    </div>
+    <nav class="piede-voci" aria-label="Piè di pagina">
+      <a href="#lista-attesa">Lista d'attesa</a>
+      <a href="#domande">Domande</a>
+      <a href="privacy.html">Privacy</a>
+      <!-- DA COMPILARE: metti qui l'indirizzo email per i contatti (anche in privacy.html) -->
+      <a href="mailto:TUA-EMAIL@esempio.it">Contatti</a>
+    </nav>
+    <span class="etichetta piede-fondo">© 2026 Nexus · fatto in Italia</span>
   </div>
 </footer>
 
@@ -485,8 +609,7 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
 
   // ============================================================
   //  LISTA D'ATTESA + CONTATORE ISCRITTI UNICI
-  //  Per attivare il contatore: compila questi due valori (vedi guida Firebase).
-  //  Finché sono vuoti il sito funziona comunque (solo Formspree) e il contatore resta nascosto.
+  //  Le istruzioni complete sono in CONTATORE.md.
   // ============================================================
   // MailerLite: le iscrizioni vanno nella lista e parte da sola l'email di benvenuto.
   // I due numeri si leggono nel codice del modulo su MailerLite: assets.mailerlite.com/jsonp/ACCOUNT/forms/MODULO/subscribe
@@ -513,8 +636,16 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     }
   };
 
+  // Formspree fa da riserva: si usa solo se MailerLite non risponde (o non e' configurato).
+  // Metti true se vuoi ANCHE ricevere da Formspree un'email per ogni nuovo iscritto
+  // (attenzione: il piano gratis di Formspree ha un limite di invii al mese).
+  const AVVISO_FORMSPREE = false;
+
+  // Contatore: compila i due valori di Firebase (vedi CONTATORE.md). Finche' sono vuoti resta nascosto.
   const FIREBASE_PROJECT_ID = "";
   const FIREBASE_API_KEY = "";
+  // Il numero compare solo da questa quota in su: "3 persone iscritte" farebbe l'effetto contrario.
+  const SOGLIA_CONTATORE = 50;
   const contatoreAttivo = !!(FIREBASE_PROJECT_ID && FIREBASE_API_KEY);
   const FS_BASE = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents`;
 
@@ -573,12 +704,13 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     if (!contatoreAttivo) return;
     try {
       const n = await leggiConteggio();
+      if (n < SOGLIA_CONTATORE) return;
       sezioneContatore.classList.add("pronto");
       animaNumero(valoreMostrato, n);
     } catch {}
   };
   aggiornaContatore();
-  setInterval(aggiornaContatore, 60000);
+  if (contatoreAttivo) setInterval(() => { if (!document.hidden) aggiornaContatore(); }, 60000);
 
   // Stato "iscritto": campo bloccato + bottone che si illumina
   const mostraIscritto = (form, esito, email, giaIscritto) => {
@@ -619,13 +751,15 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
         return;
       }
 
-      // Email nuova (o contatore non attivo): MailerLite (se attivo) e Formspree, che vi avvisa via email
-      let andata = true;
-      if (mailerliteAttivo) andata = await iscriviMailerlite(email);
-      try {
-        const r = await fetch(form.action, { method: form.method, body: new FormData(form), headers: { Accept: "application/json" } });
-        if (!mailerliteAttivo) andata = r.ok;
-      } catch { if (!mailerliteAttivo) andata = false; }
+      // Email nuova (o contatore non attivo): prima MailerLite, Formspree solo come riserva
+      // (o sempre, se AVVISO_FORMSPREE e' true)
+      let andata = mailerliteAttivo ? await iscriviMailerlite(email) : false;
+      if (!andata || AVVISO_FORMSPREE) {
+        try {
+          const r = await fetch(form.action, { method: form.method, body: new FormData(form), headers: { Accept: "application/json" } });
+          andata = andata || r.ok;
+        } catch {}
+      }
       if (!andata) {
         tasto.disabled = false; tasto.textContent = "Riprova";
         esito.textContent = "Ops, non è andata. Controlla la connessione e riprova tra poco.";
@@ -647,18 +781,26 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
   let mx = 0, my = 0, tx = 0, ty = 0;
   addEventListener("pointermove", (e) => { tx = (e.clientX / innerWidth - 0.5) * 2; ty = (e.clientY / innerHeight - 0.5) * 2; });
   const inizio = performance.now();
-  let palette = [];
+  // i colori si rileggono solo durante un cambio di tema (anche quello sfumato), non a ogni fotogramma
+  let palette = [], fondo = "", rileggiFino = 0;
   const aggiornaPalette = () => { const c = getComputedStyle(radice);
-    palette = ["--iri-a", "--iri-b", "--iri-c", "--testo"].map((k) => c.getPropertyValue(k).trim()); };
+    palette = ["--iri-a", "--iri-b", "--iri-c", "--testo"].map((k) => c.getPropertyValue(k).trim());
+    fondo = c.getPropertyValue("--notte").trim(); };
   aggiornaPalette();
-  new MutationObserver(() => { if (piano) requestAnimationFrame(disegna); }).observe(radice, { attributes: true, attributeFilter: ["data-theme"] });
+  let visibile = true, inCorso = false;
+  const avvia = () => { if (!inCorso && visibile && !document.hidden) { inCorso = true; requestAnimationFrame(disegna); } };
+  new MutationObserver(() => { rileggiFino = performance.now() + 900; aggiornaPalette(); if (piano) requestAnimationFrame(disegna); })
+    .observe(radice, { attributes: true, attributeFilter: ["data-theme"] });
   matchMedia("(prefers-color-scheme: light)").addEventListener?.("change", aggiornaPalette);
+  if ("IntersectionObserver" in window) new IntersectionObserver(([v]) => { visibile = v.isIntersecting; avvia(); }).observe(tela);
+  document.addEventListener("visibilitychange", avvia);
   function disegna(adesso) {
+    inCorso = false;
     const dpr = Math.min(devicePixelRatio || 1, 2), w = tela.clientWidth, h = tela.clientHeight;
     if (tela.width !== Math.round(w * dpr)) { tela.width = Math.round(w * dpr); tela.height = Math.round(h * dpr); }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
-    aggiornaPalette();
+    if (adesso < rileggiFino) aggiornaPalette();
     const t = piano ? 4 : Math.max(0, (adesso - inizio) / 1000);
     mx += (tx - mx) * 0.04; my += (ty - my) * 0.04;
     const arrivo = piano ? 1 : Math.min(1, t / 2.2), stringi = 1 + 1.6 * (1 - arrivo) ** 3;
@@ -677,24 +819,43 @@ footer .gabbia { display: flex; justify-content: space-between; flex-wrap: wrap;
     const anello = ctx.createLinearGradient(cx - raggio, cy - raggio, cx + raggio, cy + raggio);
     anello.addColorStop(0, palette[0]); anello.addColorStop(0.5, palette[1]); anello.addColorStop(1, palette[2]);
     ctx.shadowColor = palette[1]; ctx.shadowBlur = 26 + 14 * respiro;
-    ctx.fillStyle = getComputedStyle(radice).getPropertyValue("--notte").trim();
+    ctx.fillStyle = fondo;
     ctx.strokeStyle = anello; ctx.lineWidth = 2.5;
     ctx.beginPath(); ctx.arc(cx, cy, raggio, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
     ctx.shadowBlur = 0;
-    if (!piano) requestAnimationFrame(disegna);
+    if (!piano) avvia();
   }
-  requestAnimationFrame(disegna);
+  if (piano) requestAnimationFrame(disegna); else avvia();
 
   const arco = document.getElementById("arco"), pianeta = document.getElementById("pianeta"), percento = document.getElementById("percento");
+  let orbitaVisibile = false, orbitaInCorso = false;
+  const avviaOrbita = () => { if (!orbitaInCorso && orbitaVisibile && !document.hidden) { orbitaInCorso = true; requestAnimationFrame(orbita); } };
   function orbita(adesso) {
+    orbitaInCorso = false;
     const f = piano ? 0.35 : 0.12 + 0.6 * (0.5 - 0.5 * Math.cos(adesso / 2600));
     arco.setAttribute("stroke-dashoffset", (276.5 * (1 - f)).toFixed(1));
     const ang = -Math.PI / 2 + f * Math.PI * 2;
     pianeta.setAttribute("cx", (60 + 44 * Math.cos(ang)).toFixed(1)); pianeta.setAttribute("cy", (60 + 44 * Math.sin(ang)).toFixed(1));
     percento.textContent = `${Math.round(f * 100)}%`;
-    if (!piano) requestAnimationFrame(orbita);
+    if (!piano) avviaOrbita();
   }
-  requestAnimationFrame(orbita);
+  if (piano || !("IntersectionObserver" in window)) { orbitaVisibile = true; requestAnimationFrame(orbita); }
+  else {
+    new IntersectionObserver(([v]) => { orbitaVisibile = v.isIntersecting; avviaOrbita(); }).observe(arco.ownerSVGElement);
+    document.addEventListener("visibilitychange", avviaOrbita);
+  }
+
+  // Video: parte da solo (muto) quando entra nello schermo e si ferma quando esce.
+  // Se chi visita preferisce meno animazioni, resta fermo finché non preme play.
+  const video = document.getElementById("video-nexus");
+  if (video && !piano && "IntersectionObserver" in window) {
+    let toccato = false;
+    video.addEventListener("pause", () => { if (!video.dataset.auto) toccato = true; delete video.dataset.auto; });
+    new IntersectionObserver(([v]) => {
+      if (v.isIntersecting && !toccato) video.play().catch(() => {});
+      else if (!v.isIntersecting && !video.paused) { video.dataset.auto = "1"; video.pause(); }
+    }, { threshold: 0.45 }).observe(video);
+  }
 
   document.querySelectorAll(".cella").forEach((c) => c.addEventListener("pointermove", (e) => {
     const b = c.getBoundingClientRect();
