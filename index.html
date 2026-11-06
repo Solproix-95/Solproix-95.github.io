@@ -98,7 +98,7 @@ p { margin: 0; }
 .marchio img { width: 28px; height: 28px; border-radius: 8px; }
 .voci { display: flex; gap: 20px; margin-left: auto; }
 .voci a { position: relative; padding-block: 6px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--tenue); text-decoration: none; transition: color 0.25s ease; }
+  color: var(--tenue); text-decoration: none; transition: color 0.25s ease; white-space: nowrap; }
 .voci a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; transform: scaleX(0); transform-origin: right;
   background: linear-gradient(90deg, var(--iri-a), var(--iri-b), var(--iri-c)); transition: transform 0.45s var(--morbido); }
 .voci a:hover, .voci a.attiva { color: var(--testo); }
@@ -289,8 +289,11 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
 .pronto .entra { translate: 0 26px; }
 .pronto .entra.vista { translate: 0 0; }
 
-@media (max-width: 860px) {
+@media (max-width: 1060px) {
   .voci { display: none; }
+  .testata .tema { margin-left: auto; }
+}
+@media (max-width: 860px) {
   .celle { --colonne: 1 !important; }
   .cella.larga { grid-column: auto; }
   .apertura .gabbia { padding-block: 84px 56px; }
