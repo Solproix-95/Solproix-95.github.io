@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy — Nexus</title>
+<meta name="description" content="Come Nexus tratta i dati di chi si iscrive alla lista d'attesa: quali dati, perché, per quanto tempo e come cancellarli.">
+<link rel="canonical" href="https://solproix-95.github.io/privacy.html">
+<link rel="icon" href="img/logo.png">
+<meta name="theme-color" content="#07070a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f2ee" media="(prefers-color-scheme: light)">
+<link rel="preload" href="font/geist.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  try { const t = localStorage.getItem("nexus-tema"); if (t) document.documentElement.dataset.theme = t; } catch {}
+</script>
+<style>
+@font-face { font-family: "Bricolage Grotesque"; src: url(font/bricolage.woff2) format("woff2"); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: "Geist"; src: url(font/geist.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url(font/geist-mono.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url(font/instrument-serif-italic.woff2) format("woff2"); font-style: italic; font-weight: 400; font-display: swap; }
+:root {
+  --notte: #07070a; --pannello: #0d0d11; --linea: #1d1c23; --testo: #ece9e3; --tenue: #8e8b95;
+  --iri-a: #ff5f86; --iri-b: #ffb46a; --iri-c: #6fd3ff; --vetro: rgba(13, 13, 17, 0.72);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --notte: #f3f2ee; --pannello: #fbfaf7; --linea: #dfddd6; --testo: #121116; --tenue: #65636b;
+    --iri-a: #e0315f; --iri-b: #d77b16; --iri-c: #0a86b8; --vetro: rgba(243, 242, 238, 0.78);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --notte: #f3f2ee; --pannello: #fbfaf7; --linea: #dfddd6; --testo: #121116; --tenue: #65636b;
+  --iri-a: #e0315f; --iri-b: #d77b16; --iri-c: #0a86b8; --vetro: rgba(243, 242, 238, 0.78);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--notte); color: var(--testo); font-family: "Geist", "Segoe UI", system-ui, sans-serif;
+  font-size: 16.5px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--iri-c); outline-offset: 3px; border-radius: 4px; }
+.gabbia { max-width: 760px; margin-inline: auto; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
+.testata { position: sticky; top: 0; z-index: 2; background: var(--vetro); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--linea); }
+.testata .gabbia { display: flex; align-items: center; justify-content: space-between; height: 60px; max-width: 1180px; }
+.marchio { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 700; font-size: 19px; }
+.marchio img { width: 28px; height: 28px; border-radius: 8px; }
+.etichetta { font-family: "Geist Mono", ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tenue); }
+.indietro { text-decoration: none; }
+.indietro:hover { color: var(--testo); }
+h1, h2 { font-family: "Bricolage Grotesque", system-ui, sans-serif; text-wrap: balance; letter-spacing: -0.02em; }
+h1 { font-size: clamp(40px, 7vw, 68px); line-height: 1; font-weight: 800; margin: 72px 0 16px; letter-spacing: -0.035em; }
+h1 em { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; }
+h2 { font-size: 24px; line-height: 1.2; margin: 44px 0 10px; }
+p, li { color: var(--tenue); }
+strong { color: var(--testo); font-weight: 600; }
+ul { padding-left: 20px; }
+li { margin-bottom: 6px; }
+.riassunto { margin: 32px 0 8px; padding: 24px 26px; border: 1px solid var(--linea); background: var(--pannello); }
+.riassunto p { margin: 0 0 6px; }
+.riassunto ul { margin: 0; }
+.da-compilare { background: color-mix(in srgb, var(--iri-a) 18%, transparent); color: var(--testo); padding: 0 4px; }
+footer { margin-top: 80px; border-top: 1px solid var(--linea); }
+footer .gabbia { padding-block: 28px 44px; }
+</style>
+</head>
+<body>
+<header class="testata">
+  <div class="gabbia">
+    <a class="marchio" href="./"><img src="img/logo.webp" width="28" height="28" alt="">Nexus</a>
+    <a class="etichetta indietro" href="./">← Torna al sito</a>
+  </div>
+</header>
+
+<main class="gabbia">
+  <span class="etichetta">Ultimo aggiornamento: 6 novembre 2026</span>
+  <h1>Privacy, <em>in parole semplici.</em></h1>
+  <p>Questa pagina spiega quali dati raccoglie questo sito quando ti iscrivi alla lista d'attesa di Nexus, perché lo fa e come puoi cancellarli. Vale per il sito, non per l'app: l'app Nexus tiene le tue chat sul tuo computer.</p>
+
+  <div class="riassunto">
+    <p><strong>In breve</strong></p>
+    <ul>
+      <li>Raccogliamo solo la tua email, e solo se ti iscrivi.</li>
+      <li>La usiamo per mandarti l'invito alla beta e le novità su Nexus. Niente altro, e non la vendiamo a nessuno.</li>
+      <li>Niente cookie di tracciamento, niente pubblicità, niente statistiche sulle visite.</li>
+      <li>Ti cancelli quando vuoi con il link in fondo a ogni email.</li>
+    </ul>
+  </div>
+
+  <h2>Chi è il titolare</h2>
+  <!-- DA COMPILARE: nome e cognome (o nome dell'azienda) ed email di contatto -->
+  <p>Il titolare del trattamento è <span class="da-compilare">[NOME E COGNOME]</span>. Per qualsiasi domanda sui tuoi dati scrivi a <a class="da-compilare" href="mailto:TUA-EMAIL@esempio.it">TUA-EMAIL@esempio.it</a>.</p>
+
+  <h2>Quali dati e perché</h2>
+  <p><strong>Il tuo indirizzo email</strong>, quando lo scrivi nel modulo della lista d'attesa. Serve per mandarti l'invito a scaricare la beta di Nexus e qualche email sulle novità del progetto.</p>
+  <p>La base giuridica è il tuo <strong>consenso</strong> (art. 6.1.a del GDPR), che dai iscrivendoti e che puoi ritirare in ogni momento, senza conseguenze sul trattamento fatto prima.</p>
+
+  <h2>A chi li affidiamo</h2>
+  <p>Per far funzionare la lista usiamo alcuni servizi esterni, che trattano i dati per conto nostro e solo per questo scopo:</p>
+  <ul>
+    <li><strong>MailerLite</strong> (UAB MailerLite, Lituania, Unione Europea): conserva la lista degli iscritti e invia le email.</li>
+    <li><strong>Formspree</strong> (Formspree Inc., Stati Uniti): riceve l'iscrizione solo come riserva, se MailerLite in quel momento non risponde. Il trasferimento verso gli Stati Uniti avviene con le garanzie previste dagli articoli 44 e seguenti del GDPR.</li>
+    <li><strong>GitHub Pages</strong> (GitHub Inc., Stati Uniti): ospita il sito. Come ogni server registra per motivi di sicurezza dati tecnici delle visite, come l'indirizzo IP.</li>
+    <li><strong>Firebase</strong> (Google, solo se il contatore degli iscritti è attivo): al posto della tua email salva solo un'impronta (un codice calcolato dall'indirizzo), per contare gli iscritti senza doppioni.</li>
+  </ul>
+  <p>I caratteri tipografici sono ospitati direttamente su questo sito: la visita non manda richieste a Google Fonts.</p>
+
+  <h2>Per quanto tempo</h2>
+  <p>Teniamo la tua email finché resti iscritto. Se ti cancelli, la togliamo dalla lista; MailerLite può conservarla in un elenco di "non scrivere più" proprio per garantire che non ti arrivino altre email.</p>
+
+  <h2>Cosa salva il tuo browser</h2>
+  <p>Il sito usa la memoria locale del browser (non cookie) per due cose tecniche: ricordare se preferisci il tema chiaro o scuro e ricordare che ti sei già iscritto, così non ti chiede di nuovo l'email. Questi dati restano sul tuo dispositivo e puoi cancellarli dalle impostazioni del browser.</p>
+
+  <h2>I tuoi diritti</h2>
+  <p>Puoi chiedere in ogni momento di vedere, correggere o cancellare i tuoi dati, di limitarne l'uso, di riceverli in un formato leggibile o di opporti al trattamento (articoli 15–22 del GDPR). Basta scrivere all'indirizzo qui sopra. Se pensi che i tuoi dati siano trattati male puoi anche rivolgerti al <a href="https://www.garanteprivacy.it/" rel="noopener">Garante per la protezione dei dati personali</a>.</p>
+
+  <h2>Se hai meno di 14 anni</h2>
+  <p>Per iscriverti serve il consenso di un genitore o di chi ne fa le veci. Se scopriamo un'iscrizione senza questo consenso, la cancelliamo.</p>
+</main>
+
+<footer>
+  <div class="gabbia"><span class="etichetta">© 2026 Nexus · fatto in Italia</span></div>
+</footer>
+</body>
+</html>
