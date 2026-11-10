@@ -1,7 +1,7 @@
 # Come accendere il contatore degli iscritti
 
 Il sito ha già tutto il codice per mostrare "**N persone si sono già iscritte**".
-Resta spento finché non colleghi un progetto Firebase (gratis). Servono circa 10 minuti.
+Resta spento finché non colleghi un progetto Firebase (basta il piano base, Spark). Servono circa 10 minuti.
 
 ## 1. Crea il progetto
 1. Vai su <https://console.firebase.google.com> e premi **Aggiungi progetto** (es. `nexus-lista`). Google Analytics non serve.

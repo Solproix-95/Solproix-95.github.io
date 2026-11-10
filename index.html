@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Nexus: l'IA sul tuo PC, gratis e in italiano. Modelli locali anche senza internet e modelli nel cloud quando serve. Iscriviti alla beta.">
-<title>Nexus — L'IA sul tuo PC, gratis e in italiano</title>
+<meta name="description" content="Nexus: l'IA sul tuo PC, in italiano. Modelli locali anche senza internet e modelli nel cloud quando serve. Iscriviti alla beta.">
+<title>Nexus — L'IA sul tuo PC, in italiano</title>
 <link rel="canonical" href="https://solproix-95.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://solproix-95.github.io/">
-<meta property="og:title" content="Nexus — L'IA sul tuo PC, gratis e in italiano">
-<meta property="og:description" content="I modelli di IA sul tuo computer, gratis e anche senza internet, e quelli nel cloud quando serve. Iscriviti alla beta.">
+<meta property="og:title" content="Nexus — L'IA sul tuo PC, in italiano">
+<meta property="og:description" content="I modelli di IA sul tuo computer, anche senza internet, e quelli nel cloud quando serve. Iscriviti alla beta.">
 <meta property="og:image" content="https://solproix-95.github.io/img/anteprima.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -165,11 +165,15 @@ p { margin: 0; }
 .vetrina { border-bottom: 1px solid var(--linea); padding-block: 64px; }
 .cornice { position: relative; max-width: 1000px; margin-inline: auto; }
 .cornice img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--linea); }
-.cornice svg { position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); pointer-events: none; overflow: visible; }
-.cornice rect { fill: none; stroke: url(#iridescenza); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 18 82;
-  animation: corri 5s linear infinite; }
-.cornice rect.alone { stroke-width: 9; opacity: 0.35; filter: blur(6px); }
-@keyframes corri { to { stroke-dashoffset: -100; } }
+/* linea continua intorno all'immagine: i tre colori ci scorrono dentro piano, con un alone morbido */
+@property --giro { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.cornice::before, .cornice::after { content: ""; position: absolute; inset: -4px; border-radius: 18px; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--giro), var(--iri-a), var(--iri-b), var(--iri-c), var(--iri-a));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: giraLuce 9s linear infinite; }
+.cornice::after { inset: -6px; border-radius: 20px; padding: 4px; filter: blur(10px); opacity: 0.45; }
+@keyframes giraLuce { to { --giro: 360deg; } }
 .didascalia { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 1000px; margin: 14px auto 0; }
 
 /* ---------- griglia di celle ---------- */
@@ -195,7 +199,7 @@ p { margin: 0; }
 .elenco li { font-family: var(--mono); font-size: 12.5px; padding: 6px 10px; border: 1px solid var(--linea); border-radius: 99px;
   transition: transform 0.3s var(--morbido), border-color 0.25s ease, color 0.25s ease; }
 .elenco li:hover { transform: translateY(-2px); border-color: var(--iri-c); color: var(--testo); }
-.elenco li.paga { color: var(--tenue); border-style: dashed; }
+.elenco li.altro { color: var(--tenue); border-style: dashed; }
 .punto { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: var(--iri-c); box-shadow: 0 0 12px var(--iri-c); }
 
 .orbita-grande { width: 100%; max-width: 220px; aspect-ratio: 1; margin: 6px auto; }
@@ -339,7 +343,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
     <div class="gabbia">
       <span class="etichetta">Windows · Mac · Linux</span>
       <h1><span class="parola">La tua IA.</span><span class="serif parola" style="animation-delay:.12s">Sul tuo PC.</span></h1>
-      <p class="sotto">Nexus fa girare i modelli sul tuo computer, gratis e anche senza internet. Quando ti serve più potenza, passi al cloud con un clic e poi torni indietro.</p>
+      <p class="sotto">Nexus fa girare i modelli sul tuo computer, anche senza internet. Quando ti serve più potenza, passi al cloud con un clic e poi torni indietro.</p>
       
       <div class="azioni">
         <form class="waitlist-form" id="form-hero" action="https://formspree.io/f/mjyyjkvr" method="POST">
@@ -358,10 +362,6 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
     <div class="gabbia">
       <figure class="cornice" style="margin:0">
         <img src="img/benvenuto.webp" width="1280" height="820" fetchpriority="high" alt="La finestra di Nexus: la barra con le chat, il disco, i suggerimenti Per te e la casella per scrivere">
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <rect class="alone" x="0.4" y="0.4" width="99.2" height="99.2" rx="1.6" pathLength="100" vector-effect="non-scaling-stroke" />
-          <rect x="0.4" y="0.4" width="99.2" height="99.2" rx="1.6" pathLength="100" vector-effect="non-scaling-stroke" />
-        </svg>
       </figure>
       <div class="didascalia"><span class="etichetta">Mentre Nexus pensa, una linea di luce corre intorno alla casella</span><span class="etichetta">llama3.2:3b · 30.0 token/s</span></div>
     </div>
@@ -370,8 +370,8 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   <section class="sezione" id="film">
     <div class="gabbia">
       <div class="testa-sezione entra">
-        <span class="etichetta">Il film · 40 secondi</span>
-        <h2>Guardala <span class="serif">in azione.</span></h2>
+        <span class="etichetta">Video · 40 secondi</span>
+        <h2>Guardalo <span class="serif">in azione.</span></h2>
         <p>Dalla prima domanda al codice, dal tuo PC al cloud e ritorno: ecco come lavora Nexus.</p>
       </div>
       <figure class="schermo entra">
@@ -399,9 +399,9 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
         </article>
         <article class="cella entra">
           <div class="testa-cella"><span class="etichetta">Cloud</span><span class="punto" aria-hidden="true" style="background:var(--iri-a);box-shadow:0 0 12px var(--iri-a)"></span></div>
-          <h3>Modelli enormi, anche gratis.</h3>
-          <p>Premi "Prendi la chiave", accedi al servizio e incollala: Nexus trova i modelli e prova che rispondano. Se uno finisce i messaggi gratis, passa al prossimo.</p>
-          <ul class="elenco"><li>NVIDIA</li><li>Groq</li><li>Gemini</li><li>Cerebras</li><li>Mistral</li><li>OpenRouter</li><li class="paga">DeepSeek</li><li class="paga">OpenAI</li><li class="paga">Anthropic</li><li class="paga">xAI</li><li class="paga">+ qualsiasi altro</li></ul>
+          <h3>Modelli enormi, quando servono.</h3>
+          <p>Premi "Prendi la chiave", accedi al servizio e incollala: Nexus trova i modelli e prova che rispondano. Se uno raggiunge il limite di messaggi, passa al prossimo.</p>
+          <ul class="elenco"><li>NVIDIA</li><li>Groq</li><li>Gemini</li><li>Cerebras</li><li>Mistral</li><li>OpenRouter</li><li>DeepSeek</li><li>OpenAI</li><li>Anthropic</li><li>xAI</li><li class="altro">+ qualsiasi altro</li></ul>
         </article>
       </div>
     </div>
@@ -423,7 +423,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
       </div>
       <div class="celle" style="--colonne:3">
         <article class="cella entra larga">
-          <div class="testa-cella"><span class="etichetta">Costellazione</span><span class="etichetta">PC · gratis · a pagamento</span></div>
+          <div class="testa-cella"><span class="etichetta">Costellazione</span><span class="etichetta">Locale · cloud</span></div>
           <h3>Scegli chi risponde.</h3>
           <img src="img/costellazione.webp" width="1280" height="820" loading="lazy" alt="Il pannello Costellazione con i ruoli e i modelli di Ollama e LM Studio">
         </article>
@@ -480,10 +480,10 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
           <tbody>
             <tr><th scope="row">Funziona senza internet</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="no">No</span></td><td data-col="App solo locali"><span class="si">Sì</span></td></tr>
             <tr><th scope="row">Le chat restano sul tuo PC</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="no">No</span></td><td data-col="App solo locali"><span class="si">Sì</span></td></tr>
-            <tr><th scope="row">Modelli enormi nel cloud</th><td class="nostro" data-col="Nexus"><span class="si">Sì, anche gratis</span></td><td data-col="Chatbot nel browser"><span class="si">Sì</span></td><td data-col="App solo locali"><span class="no">Di solito no</span></td></tr>
-            <tr><th scope="row">Se finiscono i messaggi gratis passa a un altro servizio</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="no">No</span></td><td data-col="App solo locali"><span class="no">No</span></td></tr>
+            <tr><th scope="row">Modelli enormi nel cloud</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="si">Sì</span></td><td data-col="App solo locali"><span class="no">Di solito no</span></td></tr>
+            <tr><th scope="row">Se un servizio raggiunge il limite, passa a un altro</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="no">No</span></td><td data-col="App solo locali"><span class="no">No</span></td></tr>
             <tr><th scope="row">Lavora sui file dei tuoi progetti, con il tuo sì</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="forse">Dipende</span></td><td data-col="App solo locali"><span class="forse">Dipende</span></td></tr>
-            <tr><th scope="row">Costo</th><td class="nostro" data-col="Nexus">Acquisto singolo</td><td data-col="Chatbot nel browser">Spesso un abbonamento</td><td data-col="App solo locali">Spesso gratis</td></tr>
+            <tr><th scope="row">Senza abbonamento mensile</th><td class="nostro" data-col="Nexus"><span class="si">Sì, acquisto singolo</span></td><td data-col="Chatbot nel browser"><span class="no">Non per i modelli migliori</span></td><td data-col="App solo locali"><span class="si">Di solito sì</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -494,12 +494,12 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
     <div class="gabbia">
       <div class="testa-sezione entra">
         <span class="etichetta">Come si comincia</span>
-        <h2>Tre passi, <span class="serif">cinque minuti.</span></h2>
+        <h2>Tre passi <span class="serif">e sei pronto.</span></h2>
       </div>
       <div class="celle" style="--colonne:3">
-        <article class="cella passo entra"><span class="numero">01</span><h3>Iscriviti alla lista.</h3><p>Riceverai un invito per scaricare Nexus appena sarà pronta la versione Beta.</p></article>
+        <article class="cella passo entra"><span class="numero">01</span><h3>Iscriviti alla lista.</h3><p>Riceverai un invito per scaricare Nexus appena sarà pronta la versione beta.</p></article>
         <article class="cella passo entra"><span class="numero">02</span><h3>Nexus trova i tuoi modelli.</h3><p>Se hai già Ollama o LM Studio li usa subito; se no ti dice quali scaricare per il tuo PC.</p></article>
-        <article class="cella passo entra"><span class="numero">03</span><h3>Se vuoi, collega il cloud.</h3><p>Una chiave gratuita di NVIDIA, Groq o Gemini e hai anche i modelli più grandi.</p></article>
+        <article class="cella passo entra"><span class="numero">03</span><h3>Se vuoi, collega il cloud.</h3><p>Incolla la chiave di NVIDIA, Groq, Gemini o del servizio che preferisci e hai anche i modelli più grandi.</p></article>
       </div>
     </div>
   </section>
@@ -507,12 +507,12 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   <section class="sezione" id="lista-attesa">
     <div class="gabbia">
       <div class="testa-sezione entra">
-        <span class="etichetta">Accesso Anticipato</span>
+        <span class="etichetta">Accesso anticipato</span>
         <h2>Entra prima <span class="serif">degli altri.</span></h2>
       </div>
       <div class="iscrizione">
         <div class="entra">
-          <span class="etichetta">Nexus · Versione Beta</span>
+          <span class="etichetta">Nexus · versione beta</span>
           <h3 style="font-size:32px; font-weight:800; margin-block: 10px 18px;">Riserva il tuo posto</h3>
           <ul class="incluso">
             <li>Accesso prioritario alla prima release per Windows, Mac e Linux</li>
@@ -544,11 +544,11 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
     <div class="gabbia">
       <div class="testa-sezione entra"><span class="etichetta">Domande</span><h2>Prima di <span class="serif">iscriverti.</span></h2></div>
       <div class="domande">
-        <details><summary>Quando potrò scaricare Nexus?</summary><p>Stiamo rifinendo le prime versioni. Iscrivendoti alla lista d'attesa sarai tra i primi a ricevere il link di download della Beta non appena disponibile.</p></details>
+        <details><summary>Quando potrò scaricare Nexus?</summary><p>Stiamo rifinendo le prime versioni. Iscrivendoti alla lista d'attesa sarai tra i primi a ricevere il link per scaricare la beta, appena sarà pronta.</p></details>
         <details><summary>Serve internet per usarlo?</summary><p>No. Nella sezione Locale Nexus funziona anche offline, con i modelli che girano sul tuo PC. Internet serve solo per la sezione Cloud e per cercare online.</p></details>
         <details><summary>Che computer serve?</summary><p>Con 16 GB di RAM girano bene modelli fino a 9 miliardi di parametri. Con meno memoria si usano modelli più piccoli, oppure il cloud.</p></details>
         <details><summary>Quanto costerà Nexus al lancio?</summary><p>Nexus sarà accessibile con una formula ad acquisto singolo a un prezzo contenuto, senza abbonamenti mensili ricorrenti.</p></details>
-        <details><summary>Dove finiscono le mie chat?</summary><p>In una cartella sul tuo PC, nei tuoi Documenti. Nexus non ha un server proprietario e non vede quello che scrivi.</p></details>
+        <details><summary>Dove finiscono le mie chat?</summary><p>In una cartella sul tuo PC, nei tuoi Documenti. Nexus non ha un server suo e non vede quello che scrivi. In Locale i messaggi non lasciano il computer; in Cloud vanno solo al servizio che hai scelto tu.</p></details>
       </div>
     </div>
   </section>
@@ -566,7 +566,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   <div class="gabbia">
     <div class="piede-marchio">
       <a class="marchio" href="#inizio"><img src="img/logo.webp" width="28" height="28" alt="">Nexus</a>
-      <p>L'IA sul tuo PC, gratis e in italiano. Locale quando vuoi, cloud quando serve.</p>
+      <p>L'IA sul tuo PC, in italiano. Locale quando vuoi, cloud quando serve.</p>
     </div>
     <nav class="piede-voci" aria-label="Piè di pagina">
       <a href="#lista-attesa">Lista d'attesa</a>
@@ -638,7 +638,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
 
   // Formspree fa da riserva: si usa solo se MailerLite non risponde (o non e' configurato).
   // Metti true se vuoi ANCHE ricevere da Formspree un'email per ogni nuovo iscritto
-  // (attenzione: il piano gratis di Formspree ha un limite di invii al mese).
+  // (attenzione: il piano base di Formspree ha un limite di invii al mese).
   const AVVISO_FORMSPREE = false;
 
   // Contatore: compila i due valori di Firebase (vedi CONTATORE.md). Finche' sono vuoti resta nascosto.
