@@ -16,14 +16,16 @@
 <meta property="og:locale" content="it_IT">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/logo.png">
-<meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" content="#07070a" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3f2ee" media="(prefers-color-scheme: light)">
 <link rel="apple-touch-icon" href="img/logo.png">
 <link rel="preload" href="font/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="font/geist.woff2" as="font" type="font/woff2" crossorigin>
-</head>
-<body>
+<meta property="og:site_name" content="Nexus">
+<script>
+  // il tema scelto si applica prima che la pagina compaia, così non c'è il lampo chiaro → scuro
+  try { const t = localStorage.getItem("nexus-tema"); if (t) document.documentElement.dataset.theme = t; } catch {}
+</script>
 <style>
 /* font ospitati sul sito: niente richieste a Google, solo caratteri latini (italiano incluso) */
 @font-face { font-family: "Bricolage Grotesque"; src: url(font/bricolage.woff2) format("woff2"); font-weight: 200 800; font-display: swap; }
@@ -33,6 +35,7 @@
 :root {
   --notte: #07070a; --pannello: #0d0d11; --linea: #1d1c23; --testo: #ece9e3; --tenue: #8e8b95; --tasto: #f1ede4;
   --tasto-testo: #0b0b0e; --iri-a: #ff5f86; --iri-b: #ffb46a; --iri-c: #6fd3ff; --vetro: rgba(13, 13, 17, 0.72);
+  --arancio-testo: #ffb46a;
   --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   --accento-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
   --corpo: "Geist", "Segoe UI", system-ui, sans-serif;
@@ -44,17 +47,20 @@
   :root:not([data-theme="dark"]) {
     --notte: #f3f2ee; --pannello: #fbfaf7; --linea: #dfddd6; --testo: #121116; --tenue: #65636b; --tasto: #121116;
     --tasto-testo: #f6f4ef; --iri-a: #e0315f; --iri-b: #d77b16; --iri-c: #0a86b8; --vetro: rgba(243, 242, 238, 0.78);
+    --arancio-testo: #9e5508;
     color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --notte: #f3f2ee; --pannello: #fbfaf7; --linea: #dfddd6; --testo: #121116; --tenue: #65636b; --tasto: #121116;
   --tasto-testo: #f6f4ef; --iri-a: #e0315f; --iri-b: #d77b16; --iri-c: #0a86b8; --vetro: rgba(243, 242, 238, 0.78);
+  --arancio-testo: #9e5508;
   color-scheme: light;
 }
 :root[data-theme="dark"] {
   --notte: #07070a; --pannello: #0d0d11; --linea: #1d1c23; --testo: #ece9e3; --tenue: #8e8b95; --tasto: #f1ede4;
   --tasto-testo: #0b0b0e; --iri-a: #ff5f86; --iri-b: #ffb46a; --iri-c: #6fd3ff; --vetro: rgba(13, 13, 17, 0.72);
+  --arancio-testo: #ffb46a;
   color-scheme: dark;
 }
 
@@ -69,7 +75,8 @@
 @property --iri-b { syntax: "<color>"; inherits: true; initial-value: #000; }
 @property --iri-c { syntax: "<color>"; inherits: true; initial-value: #000; }
 @property --vetro { syntax: "<color>"; inherits: true; initial-value: #000; }
-:root.sfuma { transition: --notte 0.6s ease, --pannello 0.6s ease, --linea 0.6s ease, --testo 0.6s ease, --tenue 0.6s ease, --tasto 0.6s ease, --tasto-testo 0.6s ease, --iri-a 0.6s ease, --iri-b 0.6s ease, --iri-c 0.6s ease, --vetro 0.6s ease; }
+@property --arancio-testo { syntax: "<color>"; inherits: true; initial-value: #000; }
+:root.sfuma { transition: --notte 0.6s ease, --pannello 0.6s ease, --linea 0.6s ease, --testo 0.6s ease, --tenue 0.6s ease, --tasto 0.6s ease, --tasto-testo 0.6s ease, --iri-a 0.6s ease, --iri-b 0.6s ease, --iri-c 0.6s ease, --vetro 0.6s ease, --arancio-testo 0.6s ease; }
 
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-old(root) { z-index: 1; }
@@ -131,7 +138,7 @@ p { margin: 0; }
 .campo-email::placeholder { color: var(--tenue); }
 .consenso { font-size: 12.5px; color: var(--tenue); margin: 10px 0 0; max-width: 460px; line-height: 1.5; }
 #form-sezione ~ .consenso { max-width: 100%; }
-.esito-waitlist { font-family: var(--mono); font-size: 13px; color: var(--iri-b); margin-top: 6px; display: none; }
+.esito-waitlist { font-family: var(--mono); font-size: 13px; color: var(--arancio-testo); margin-top: 6px; display: none; }
 
 
 /* ---------- stato iscritto + contatore ---------- */
@@ -213,7 +220,7 @@ p { margin: 0; }
 @keyframes scorri { to { transform: translateX(-50%); } }
 
 /* ---------- passi ---------- */
-.passo .numero { font-family: var(--mono); font-size: 13px; color: var(--iri-b); }
+.passo .numero { font-family: var(--mono); font-size: 13px; color: var(--arancio-testo); }
 
 /* ---------- sezione iscrizione ---------- */
 .iscrizione { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); border-top: 1px solid var(--linea); border-left: 1px solid var(--linea); margin-bottom: 72px; }
@@ -276,7 +283,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
 .marcia li:last-child::after { display: none; }
 .marcia li.ora::before { border-color: var(--iri-b); background: var(--iri-b); box-shadow: 0 0 12px var(--iri-b); }
 .marcia .quando { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); }
-.marcia li.ora .quando { color: var(--iri-b); }
+.marcia li.ora .quando { color: var(--arancio-testo); }
 .marcia strong { font-family: var(--display); font-size: 20px; letter-spacing: -0.01em; }
 .marcia p { color: var(--tenue); font-size: 15px; }
 .consenso a { color: var(--testo); text-underline-offset: 3px; }
@@ -314,6 +321,8 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   html { scroll-behavior: auto; }
 }
 </style>
+</head>
+<body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -361,7 +370,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   <section class="vetrina">
     <div class="gabbia">
       <figure class="cornice" style="margin:0">
-        <img src="img/benvenuto.webp" width="1280" height="820" fetchpriority="high" alt="La finestra di Nexus: la barra con le chat, il disco, i suggerimenti Per te e la casella per scrivere">
+        <img src="img/benvenuto.webp" srcset="img/benvenuto-720.webp 720w, img/benvenuto.webp 1280w" sizes="(max-width: 1040px) calc(100vw - 32px), 1000px" width="1280" height="820" fetchpriority="high" alt="La finestra di Nexus: la barra con le chat, il disco, i suggerimenti Per te e la casella per scrivere">
       </figure>
       <div class="didascalia"><span class="etichetta">Mentre Nexus pensa, una linea di luce corre intorno alla casella</span><span class="etichetta">llama3.2:3b · 30.0 token/s</span></div>
     </div>
@@ -375,7 +384,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
         <p>Dalla prima domanda al codice, dal tuo PC al cloud e ritorno: ecco come lavora Nexus.</p>
       </div>
       <figure class="schermo entra">
-        <video id="video-nexus" width="1920" height="1080" poster="video/nexus-poster.jpg" muted playsinline loop preload="none" controls
+        <video id="video-nexus" width="1920" height="1080" poster="video/nexus-poster.webp" muted playsinline loop preload="none" controls
           aria-label="Video di presentazione di Nexus, senza audio">
           <source src="video/nexus.mp4" type="video/mp4">
         </video>
@@ -425,7 +434,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
         <article class="cella entra larga">
           <div class="testa-cella"><span class="etichetta">Costellazione</span><span class="etichetta">Locale · cloud</span></div>
           <h3>Scegli chi risponde.</h3>
-          <img src="img/costellazione.webp" width="1280" height="820" loading="lazy" alt="Il pannello Costellazione con i ruoli e i modelli di Ollama e LM Studio">
+          <img src="img/costellazione.webp" srcset="img/costellazione-720.webp 720w, img/costellazione.webp 1280w" sizes="(max-width: 860px) calc(100vw - 80px), 760px" width="1280" height="820" loading="lazy" alt="Il pannello Costellazione con i ruoli e i modelli di Ollama e LM Studio">
         </article>
         <article class="cella entra">
           <span class="etichetta">Orbita</span>
@@ -456,7 +465,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
         <article class="cella entra larga">
           <div class="testa-cella"><span class="etichetta">Codice</span><span class="etichetta">Python · GDScript · JS · C# …</span></div>
           <h3>Programma con te.</h3>
-          <img src="img/risposta.webp" width="1280" height="820" loading="lazy" alt="Una risposta di Nexus con un blocco di codice Python colorato e il tasto Copia">
+          <img src="img/risposta.webp" srcset="img/risposta-720.webp 720w, img/risposta.webp 1280w" sizes="(max-width: 860px) calc(100vw - 80px), 760px" width="1280" height="820" loading="lazy" alt="Una risposta di Nexus con un blocco di codice Python colorato e il tasto Copia">
         </article>
         <article class="cella entra">
           <span class="etichetta">Ragiona · Impegno</span>
@@ -631,8 +640,11 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
       const d = await r.json().catch(() => ({ success: true }));
       return d.success !== false;
     } catch {
-      // se il browser non puo' leggere la risposta (CORS), la richiesta e' comunque arrivata a MailerLite
-      return navigator.onLine;
+      // Il browser non ha potuto leggere la risposta. Può essere CORS (la richiesta è arrivata)
+      // oppure la rete o un blocco pubblicità (non è arrivata): si riprova in modalità "no-cors",
+      // che fallisce solo se la richiesta non parte proprio. In quel caso entra in gioco Formspree.
+      try { await fetch(url, { method: "POST", body: dati, mode: "no-cors" }); return true; }
+      catch { return false; }
     }
   };
 
@@ -776,7 +788,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   const ctx = tela.getContext("2d");
   let caso = 11;
   const r = () => ((caso = (caso * 16807) % 2147483647) / 2147483647);
-  const particelle = Array.from({ length: 520 }, () => ({ a: r() * Math.PI * 2, d: 0.2 + r() ** 0.7 * 0.8, v: 0.18 + r() * 0.5,
+  const particelle = Array.from({ length: innerWidth < 700 ? 300 : 520 }, () => ({ a: r() * Math.PI * 2, d: 0.2 + r() ** 0.7 * 0.8, v: 0.18 + r() * 0.5,
     g: 0.5 + r() * 1.7, l: 0.3 + r() * 0.7, t: r() }));
   let mx = 0, my = 0, tx = 0, ty = 0;
   addEventListener("pointermove", (e) => { tx = (e.clientX / innerWidth - 0.5) * 2; ty = (e.clientY / innerHeight - 0.5) * 2; });

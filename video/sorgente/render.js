@@ -1,4 +1,4 @@
-// Trasforma scena.html in video/nexus.mp4 (1920x1080, 30 fps) e video/nexus-poster.jpg.
+// Trasforma scena.html in video/nexus.mp4 (1920x1080, 30 fps) e video/nexus-poster.webp.
 //   node video/sorgente/render.js            -> video completo
 //   node video/sorgente/render.js 3 7.5 12   -> solo alcuni fotogrammi (png) per controllare
 // Serve: Playwright con Chromium e ffmpeg.
@@ -37,7 +37,9 @@ const qui = __dirname, uscita = path.join(qui, "..");
   await new Promise((r) => ff.on("close", r));
   // copertina: un fotogramma del finale
   await page.evaluate((t) => window.render(t), POSTER);
-  await page.screenshot({ type: "jpeg", quality: 82, path: path.join(uscita, "nexus-poster.jpg") });
+  const jpg = await page.screenshot({ type: "jpeg", quality: 92 });
+  await new Promise((ok, no) => spawn("ffmpeg", ["-y", "-loglevel", "error", "-i", "-", "-quality", "78", path.join(uscita, "nexus-poster.webp")], { stdio: ["pipe", "inherit", "inherit"] })
+    .on("close", (c) => (c ? no(new Error("ffmpeg " + c)) : ok())).stdin.end(jpg));
   await browser.close();
   console.log("fatto:", path.join(uscita, "nexus.mp4"));
 })();
