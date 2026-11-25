@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Nexus: l'IA sul tuo PC, in italiano. Modelli locali anche senza internet e modelli nel cloud quando serve. Iscriviti alla beta.">
+<meta name="description" content="Nexus: l'IA sul tuo PC, in italiano. Modelli locali anche senza internet, modelli nel cloud quando serve e Code per creare programmi, siti e giochi. Iscriviti alla beta.">
 <title>Nexus — L'IA sul tuo PC, in italiano</title>
 <link rel="canonical" href="https://solproix-95.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://solproix-95.github.io/">
 <meta property="og:title" content="Nexus — L'IA sul tuo PC, in italiano">
-<meta property="og:description" content="I modelli di IA sul tuo computer, anche senza internet, e quelli nel cloud quando serve. Iscriviti alla beta.">
+<meta property="og:description" content="I modelli di IA sul tuo computer, anche senza internet, quelli nel cloud quando serve e Code per creare programmi e siti. Iscriviti alla beta.">
 <meta property="og:image" content="https://solproix-95.github.io/img/anteprima.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -341,7 +341,7 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   <div class="gabbia">
     <a class="marchio" href="#inizio"><img src="img/logo.webp" width="28" height="28" alt="">Nexus</a>
     <nav class="voci" aria-label="Sezioni">
-      <a href="#film">Video</a><a href="#due-mondi">Locale e cloud</a><a href="#funzioni">Funzioni</a><a href="#confronto">Confronto</a><a href="#lista-attesa">Lista d'attesa</a><a href="#domande">Domande</a>
+      <a href="#film">Video</a><a href="#due-mondi">Locale e cloud</a><a href="#code">Code</a><a href="#funzioni">Funzioni</a><a href="#confronto">Confronto</a><a href="#lista-attesa">Lista d'attesa</a><a href="#domande">Domande</a>
     </nav>
     <button class="tema" id="tema" type="button" aria-label="Cambia tema">
       <svg class="luna" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -355,9 +355,9 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   <section class="apertura">
     <canvas id="disco" aria-hidden="true"></canvas>
     <div class="gabbia">
-      <span class="etichetta">Windows · Mac · Linux</span>
+      <span class="etichetta">Beta privata · Windows e Linux</span>
       <h1><span class="parola">La tua IA.</span><span class="serif parola" style="animation-delay:.12s">Sul tuo PC.</span></h1>
-      <p class="sotto">Nexus fa girare i modelli sul tuo computer, anche senza internet. Quando ti serve più potenza, passi al cloud con un clic e poi torni indietro.</p>
+      <p class="sotto">Nexus fa girare i modelli sul tuo computer, anche senza internet. Quando ti serve più potenza passi al cloud con un clic, e con Code ti costruisce programmi, siti e giochi.</p>
       
       <div class="azioni">
         <form class="waitlist-form" id="form-hero" action="https://formspree.io/f/mjyyjkvr" method="POST">
@@ -375,9 +375,9 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   <section class="vetrina">
     <div class="gabbia">
       <figure class="cornice" style="margin:0">
-        <img src="img/benvenuto.webp" srcset="img/benvenuto-720.webp 720w, img/benvenuto.webp 1280w" sizes="(max-width: 1040px) calc(100vw - 32px), 1000px" width="1280" height="820" fetchpriority="high" alt="La finestra di Nexus: la barra con le chat, il disco, i suggerimenti Per te e la casella per scrivere">
+        <img src="img/benvenuto.webp" srcset="img/benvenuto-720.webp 720w, img/benvenuto.webp 1280w" sizes="(max-width: 1040px) calc(100vw - 32px), 1000px" width="1280" height="820" fetchpriority="high" alt="La finestra di Nexus: in alto a sinistra Locale, Cloud e Code, al centro il buco nero e il saluto, in basso la casella per scrivere">
       </figure>
-      <div class="didascalia"><span class="etichetta">Mentre Nexus pensa, una linea di luce corre intorno alla casella</span><span class="etichetta">llama3.2:3b · 30.0 token/s</span></div>
+      <div class="didascalia"><span class="etichetta">Locale, Cloud e Code: tre tasti in alto a sinistra</span><span class="etichetta">Nexus 0.8 · Ollama · tutto in locale</span></div>
     </div>
   </section>
 
@@ -400,22 +400,55 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
   <section class="sezione" id="due-mondi">
     <div class="gabbia">
       <div class="testa-sezione entra">
-        <span class="etichetta">Due mondi, un'app</span>
-        <h2>Locale <span class="serif">e</span> cloud.</h2>
-        <p>Un interruttore in cima alla barra. A sinistra tutto resta sul tuo PC; a destra rispondono modelli enormi in rete. Memoria, appunti e documenti sono gli stessi da tutte e due le parti.</p>
+        <span class="etichetta">Tre modi, un'app</span>
+        <h2>Locale, cloud <span class="serif">e Code.</span></h2>
+        <p>Tre tasti in cima alla barra. Locale: tutto resta sul tuo PC. Cloud: rispondono modelli enormi in rete. Code: Nexus programma nella tua cartella. Memoria e appunti sono gli stessi dappertutto.</p>
       </div>
-      <div class="celle" style="--colonne:2">
+      <div class="celle" style="--colonne:3">
         <article class="cella entra">
           <div class="testa-cella"><span class="etichetta">Locale</span><span class="punto" aria-hidden="true"></span></div>
           <h3>Niente esce dal computer.</h3>
-          <p>Nexus trova da solo i server che hai già acceso e i loro modelli. Funziona anche con un server su un altro PC di casa.</p>
-          <ul class="elenco"><li>Ollama</li><li>LM Studio</li><li>llama.cpp</li><li>Jan</li><li>vLLM</li><li>LocalAI</li><li>KoboldCpp</li></ul>
+          <p>Nexus trova da solo i server che hai già, anche su un altro PC di casa. Se sono spenti c'è il tasto Accendi, e se mancano Installa.</p>
+          <ul class="elenco"><li>Ollama</li><li>LM Studio</li><li>Jan</li><li>llama.cpp</li><li>vLLM</li><li>KoboldCpp</li></ul>
         </article>
         <article class="cella entra">
           <div class="testa-cella"><span class="etichetta">Cloud</span><span class="punto" aria-hidden="true" style="background:var(--iri-a);box-shadow:0 0 12px var(--iri-a)"></span></div>
           <h3>Modelli enormi, quando servono.</h3>
-          <p>Premi "Prendi la chiave", accedi al servizio e incollala: Nexus trova i modelli e prova che rispondano. Se uno raggiunge il limite di messaggi, passa al prossimo.</p>
-          <ul class="elenco"><li>NVIDIA</li><li>Groq</li><li>Gemini</li><li>Cerebras</li><li>Mistral</li><li>OpenRouter</li><li>DeepSeek</li><li>OpenAI</li><li>Anthropic</li><li>xAI</li><li class="altro">+ qualsiasi altro</li></ul>
+          <p>Colleghi i servizi che vuoi, nell'ordine che vuoi. Se uno raggiunge il limite passa al prossimo; se non risponde nessuno risponde il PC, e c'è scritto.</p>
+          <ul class="elenco"><li>NVIDIA</li><li>Groq</li><li>Gemini</li><li>Cerebras</li><li>Mistral</li><li>OpenRouter</li><li>DeepSeek</li><li>OpenAI</li><li>Anthropic</li><li class="altro">+ altri</li></ul>
+        </article>
+        <article class="cella entra">
+          <div class="testa-cella"><span class="etichetta">Code</span><span class="punto" aria-hidden="true" style="background:var(--iri-b);box-shadow:0 0 12px var(--iri-b)"></span></div>
+          <h3>Costruisce con te.</h3>
+          <p>Gli chiedi un programma, un sito o un gioco e lui crea i file nella tua cartella. Tu vedi ogni modifica e decidi cosa passa.</p>
+          <ul class="elenco"><li>Claude Code</li><li>Ollama</li><li>OpenRouter</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione" id="code">
+    <div class="gabbia">
+      <div class="testa-sezione entra">
+        <span class="etichetta">Code · novità</span>
+        <h2>Programmi, siti e giochi. <span class="serif">Detti a parole.</span></h2>
+        <p>Il tasto &lt;/&gt; accanto a Locale e Cloud apre Code: Nexus lavora con Claude Code di Anthropic, il programma che scrive codice, e lo usa anche con i modelli di Ollama e di OpenRouter. Tu scrivi in italiano, Nexus fa il resto e te lo racconta.</p>
+      </div>
+      <div class="celle" style="--colonne:3">
+        <article class="cella entra larga">
+          <div class="testa-cella"><span class="etichetta">Banco di lavoro</span><span class="etichetta">Scrivo · Modifico · Eseguo</span></div>
+          <h3>Vedi tutto, decidi tu.</h3>
+          <img src="img/code.webp" srcset="img/code-720.webp 720w, img/code.webp 1280w" sizes="(max-width: 860px) calc(100vw - 80px), 760px" width="1280" height="820" loading="lazy" alt="La sezione Code di Nexus: a sinistra la chat con le azioni (Scrivo index.html, Scrivo gioco.js), a destra il Banco di lavoro che chiede di approvare un comando">
+        </article>
+        <article class="cella entra">
+          <span class="etichetta">Come funziona</span>
+          <ul class="incluso">
+            <li><span>Ogni azione in italiano: "Leggo…", "Modifico…", "Eseguo…".</span></li>
+            <li><span><strong>Auto</strong>: crea e cambia i file da solo, i comandi chiedono (tranne quelli che leggono soltanto). <strong>Accetta modifiche</strong>: ogni modifica ai file passa, ogni comando chiede.</span></li>
+            <li><span>Prima di ogni modifica Nexus salva una copia: un clic e annulli.</span></li>
+            <li><span>Mai comandi da amministratore, e niente file fuori dalla cartella senza chiedere.</span></li>
+            <li><span>Se Claude Code non c'è, Nexus te lo installa con un tasto.</span></li>
+          </ul>
         </article>
       </div>
     </div>
@@ -423,8 +456,8 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
 
   <div class="striscia" aria-hidden="true">
     <div class="nastro">
-      <span>llama 3.2</span><span>qwen 3.5</span><span>kimi k2</span><span>deepseek</span><span>gemini flash</span><span>gpt-oss</span><span>gemma</span><span>hermes</span><span>qwen coder</span><span>mistral</span><span>glm</span><span>nemotron</span>
-      <span>llama 3.2</span><span>qwen 3.5</span><span>kimi k2</span><span>deepseek</span><span>gemini flash</span><span>gpt-oss</span><span>gemma</span><span>hermes</span><span>qwen coder</span><span>mistral</span><span>glm</span><span>nemotron</span>
+      <span>qwen 3.5</span><span>gemma 3</span><span>claude</span><span>llama 3.2</span><span>deepseek</span><span>kimi k2</span><span>gemini flash</span><span>gpt-oss</span><span>qwen coder</span><span>mistral</span><span>glm</span><span>nemotron</span>
+      <span>qwen 3.5</span><span>gemma 3</span><span>claude</span><span>llama 3.2</span><span>deepseek</span><span>kimi k2</span><span>gemini flash</span><span>gpt-oss</span><span>qwen coder</span><span>mistral</span><span>glm</span><span>nemotron</span>
     </div>
   </div>
 
@@ -433,13 +466,18 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
       <div class="testa-sezione entra">
         <span class="etichetta">Cosa sa fare</span>
         <h2>Pensato per lavorarci <span class="serif">ogni giorno.</span></h2>
-        <p>Scrive, programma, cerca online, ricorda le cose importanti e lavora sui file dei tuoi progetti. Sempre con la tua approvazione.</p>
+        <p>Scrive, crea pagine e documenti, cerca online, ricorda le cose importanti e impara dai suoi errori. Senza parole tecniche, e sempre con la tua approvazione quando tocca i tuoi file.</p>
       </div>
       <div class="celle" style="--colonne:3">
         <article class="cella entra larga">
-          <div class="testa-cella"><span class="etichetta">Costellazione</span><span class="etichetta">Locale · cloud</span></div>
-          <h3>Scegli chi risponde.</h3>
-          <img src="img/costellazione.webp" srcset="img/costellazione-720.webp 720w, img/costellazione.webp 1280w" sizes="(max-width: 860px) calc(100vw - 80px), 760px" width="1280" height="820" loading="lazy" alt="Il pannello Costellazione con i ruoli e i modelli di Ollama e LM Studio">
+          <div class="testa-cella"><span class="etichetta">Creazioni</span><span class="etichetta">Anteprima · Codice · Salva</span></div>
+          <h3>Pagine e documenti, con l'anteprima.</h3>
+          <img src="img/creazione.webp" srcset="img/creazione-720.webp 720w, img/creazione.webp 1280w" sizes="(max-width: 860px) calc(100vw - 80px), 760px" width="1280" height="820" loading="lazy" alt="Nexus ha creato la pagina di una pizzeria: in chat una scheda, a destra il pannello con l'anteprima della pagina">
+        </article>
+        <article class="cella entra">
+          <span class="etichetta">Automatico</span>
+          <h3>Sceglie lui il modello.</h3>
+          <p>Capisce se chiedi una foto, del codice o una cosa da ragionare e usa il modello adatto, preferendo quello già acceso per non appesantire il PC.</p>
         </article>
         <article class="cella entra">
           <span class="etichetta">Orbita</span>
@@ -450,32 +488,42 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
             <circle id="pianeta" cx="60" cy="16" r="6" fill="var(--iri-b)" />
             <text x="60" y="66" text-anchor="middle" font-family="Geist Mono, monospace" font-size="15" fill="var(--testo)" id="percento">35%</text>
           </svg>
-          <p>L'anello accanto a Invia si riempie man mano che la chat occupa la memoria del modello.</p>
+          <p>Il cerchio in alto a destra si riempie man mano che la chat occupa la memoria del modello. Un clic e vedi cosa la occupa.</p>
         </article>
         <article class="cella entra">
-          <span class="etichetta">Banco di lavoro</span>
-          <h3>Modifica i tuoi file, con il tuo sì.</h3>
-          <p>In modalità Lavoro i modelli creano e cambiano i file del progetto. Vedi le differenze riga per riga, poi Approvi, Scarti o Annulli.</p>
+          <span class="etichetta">Memoria e appunti</span>
+          <h3>Ricorda e impara.</h3>
+          <p>La memoria tiene quello che vuoi che sappia di te. Negli appunti Nexus si segna da solo cosa ha scoperto e dove ha sbagliato, per non ripeterlo.</p>
         </article>
         <article class="cella entra">
-          <span class="etichetta">Memoria</span>
-          <h3>Ricorda per argomenti.</h3>
-          <p>Su di te, progetti, scuola, gusti. Ritrova le cose per significato, non solo per parole uguali.</p>
-        </article>
-        <article class="cella entra">
-          <span class="etichetta">Siti e ricerca</span>
-          <h3>"Esplora Amazon."</h3>
-          <p>Scrivi un link o il nome di un sito: Nexus trova l'indirizzo, legge la pagina e cita le fonti.</p>
+          <span class="etichetta">Progetti</span>
+          <h3>Una cartella, le sue chat.</h3>
+          <p>Un progetto è una cartella del PC o un repository di GitHub. Nelle sue chat Nexus lavora lì: ogni modifica passa dal Banco di lavoro e si annulla.</p>
         </article>
         <article class="cella entra larga">
-          <div class="testa-cella"><span class="etichetta">Codice</span><span class="etichetta">Python · GDScript · JS · C# …</span></div>
-          <h3>Programma con te.</h3>
-          <img src="img/risposta.webp" srcset="img/risposta-720.webp 720w, img/risposta.webp 1280w" sizes="(max-width: 860px) calc(100vw - 80px), 760px" width="1280" height="820" loading="lazy" alt="Una risposta di Nexus con un blocco di codice Python colorato e il tasto Copia">
+          <div class="testa-cella"><span class="etichetta">Chat</span><span class="etichetta">Studio · lavoro · tutti i giorni</span></div>
+          <h3>Risposte chiare, in italiano.</h3>
+          <img src="img/risposta.webp" srcset="img/risposta-720.webp 720w, img/risposta.webp 1280w" sizes="(max-width: 860px) calc(100vw - 80px), 760px" width="1280" height="820" loading="lazy" alt="Una risposta di Nexus: un piano di studio di tre giorni per l'esame di storia, scritto dal modello sul PC">
+        </article>
+        <article class="cella entra">
+          <span class="etichetta">Collegamenti</span>
+          <h3>GitHub, Notion e altri.</h3>
+          <p>Accedi con un clic e Nexus legge i tuoi repository e le tue pagine. Per cambiare qualcosa chiede, a meno che tu gli dica di fare da solo.</p>
+        </article>
+        <article class="cella entra">
+          <span class="etichetta">Internet</span>
+          <h3>Cerca e cita le fonti.</h3>
+          <p>Un clic sul globo e cerca online, legge le pagine e ti dice da dove ha preso le informazioni.</p>
         </article>
         <article class="cella entra">
           <span class="etichetta">Ragiona · Impegno</span>
           <h3>Ci pensa su quando serve.</h3>
           <p>Il ragionamento resta nascosto: un clic e lo leggi. Nel cloud scegli l'impegno, da basso a extra.</p>
+        </article>
+        <article class="cella entra">
+          <span class="etichetta">E poi</span>
+          <h3>Le piccole cose.</h3>
+          <ul class="elenco"><li>Promemoria</li><li>Foto e file</li><li>Comandi /</li><li>Tu o lei</li><li>Incognito</li><li>Word e PowerPoint</li><li>Zoom</li><li>Tema chiaro e scuro</li></ul>
         </article>
       </div>
     </div>
@@ -496,7 +544,8 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
             <tr><th scope="row">Le chat restano sul tuo PC</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="no">No</span></td><td data-col="App solo locali"><span class="si">Sì</span></td></tr>
             <tr><th scope="row">Modelli enormi nel cloud</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="si">Sì</span></td><td data-col="App solo locali"><span class="no">Di solito no</span></td></tr>
             <tr><th scope="row">Se un servizio raggiunge il limite, passa a un altro</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="no">No</span></td><td data-col="App solo locali"><span class="no">No</span></td></tr>
-            <tr><th scope="row">Lavora sui file dei tuoi progetti, con il tuo sì</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="forse">Dipende</span></td><td data-col="App solo locali"><span class="forse">Dipende</span></td></tr>
+            <tr><th scope="row">Crea programmi e siti nella tua cartella, con il tuo sì</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="forse">Dipende</span></td><td data-col="App solo locali"><span class="no">Di solito no</span></td></tr>
+            <tr><th scope="row">Sceglie da solo il modello adatto</th><td class="nostro" data-col="Nexus"><span class="si">Sì</span></td><td data-col="Chatbot nel browser"><span class="si">Sì</span></td><td data-col="App solo locali"><span class="no">No</span></td></tr>
             <tr><th scope="row">Senza abbonamento mensile</th><td class="nostro" data-col="Nexus"><span class="si">Sì, acquisto singolo</span></td><td data-col="Chatbot nel browser"><span class="no">Non per i modelli migliori</span></td><td data-col="App solo locali"><span class="si">Di solito sì</span></td></tr>
           </tbody>
         </table>
@@ -511,9 +560,9 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
         <h2>Tre passi <span class="serif">e sei pronto.</span></h2>
       </div>
       <div class="celle" style="--colonne:3">
-        <article class="cella passo entra"><span class="numero">01</span><h3>Iscriviti alla lista.</h3><p>Riceverai un invito per scaricare Nexus appena sarà pronta la versione beta.</p></article>
-        <article class="cella passo entra"><span class="numero">02</span><h3>Nexus trova i tuoi modelli.</h3><p>Se hai già Ollama o LM Studio li usa subito; se no ti dice quali scaricare per il tuo PC.</p></article>
-        <article class="cella passo entra"><span class="numero">03</span><h3>Se vuoi, collega il cloud.</h3><p>Incolla la chiave di NVIDIA, Groq, Gemini o del servizio che preferisci e hai anche i modelli più grandi.</p></article>
+        <article class="cella passo entra"><span class="numero">01</span><h3>Iscriviti alla lista.</h3><p>Quando si libera un posto nella beta ti arriva un'email con il codice d'invito e il link per scaricare Nexus.</p></article>
+        <article class="cella passo entra"><span class="numero">02</span><h3>Nexus trova i tuoi modelli.</h3><p>Se hai già Ollama, LM Studio o Jan li usa subito; se no te li installa e ti dice quali modelli vanno bene sul tuo PC.</p></article>
+        <article class="cella passo entra"><span class="numero">03</span><h3>Se vuoi, cloud e Code.</h3><p>Incolla la chiave del servizio cloud che preferisci per i modelli più grandi, e accendi Code per creare programmi e siti.</p></article>
       </div>
     </div>
   </section>
@@ -529,10 +578,11 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
           <span class="etichetta">Nexus · versione beta</span>
           <h3 style="font-size:32px; font-weight:800; margin-block: 10px 18px;">Riserva il tuo posto</h3>
           <ul class="incluso">
-            <li>Accesso prioritario alla prima release per Windows, Mac e Linux</li>
-            <li>Locale e cloud integrati in un'unica interfaccia</li>
-            <li>Memoria locale, banco di lavoro e ricerca sul web</li>
-            <li>Nessun abbonamento né tracciamento dei tuoi dati</li>
+            <li>Un posto nella beta privata per Windows e Linux (il Mac arriva con la versione 1.0)</li>
+            <li>Locale, Cloud e Code in un'app sola</li>
+            <li>Memoria, appunti, progetti e ricerca sul web</li>
+            <li>Aggiornamenti automatici e firmati</li>
+            <li>Nessun abbonamento, niente statistiche sui tuoi dati</li>
           </ul>
           
           <form class="waitlist-form" id="form-sezione" action="https://formspree.io/f/mjyyjkvr" method="POST" style="max-width: 100%;">
@@ -545,9 +595,9 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
         <div class="entra">
           <span class="etichetta">A che punto siamo</span>
           <ol class="marcia">
-            <li class="ora"><span class="quando">Adesso</span><strong>Ultimi ritocchi</strong><p>Nexus funziona già, come vedi nelle immagini: stiamo rifinendo i dettagli e la lista d'attesa è aperta.</p></li>
-            <li><span class="quando">Prossimo passo</span><strong>Beta per chi è in lista</strong><p>Ti arriva un'email con il link per scaricarla. Con "Dai un parere" ci dici cosa sistemare prima.</p></li>
-            <li><span class="quando">Poi</span><strong>Versione 1.0</strong><p>Per Windows, Mac e Linux, con un acquisto singolo e senza abbonamento.</p></li>
+            <li class="ora"><span class="quando">Adesso</span><strong>Beta privata · versione 0.8</strong><p>Nexus è già nelle mani dei primi tester, su invito. Con "Dai un parere" ci dicono cosa sistemare, e gli aggiornamenti arrivano da soli.</p></li>
+            <li><span class="quando">Prossimo passo</span><strong>Più posti nella beta</strong><p>Gli inviti arrivano via email a chi è nella lista d'attesa.</p></li>
+            <li><span class="quando">Poi</span><strong>Versione 1.0</strong><p>Per Windows, Linux e anche Mac, con un acquisto singolo e senza abbonamento.</p></li>
           </ol>
         </div>
       </div>
@@ -558,11 +608,13 @@ details p { color: var(--tenue); padding: 0 4px 24px; max-width: 46em; }
     <div class="gabbia">
       <div class="testa-sezione entra"><span class="etichetta">Domande</span><h2>Prima di <span class="serif">iscriverti.</span></h2></div>
       <div class="domande">
-        <details><summary>Quando potrò scaricare Nexus?</summary><p>Stiamo rifinendo le prime versioni. Iscrivendoti alla lista d'attesa sarai tra i primi a ricevere il link per scaricare la beta, appena sarà pronta.</p></details>
-        <details><summary>Serve internet per usarlo?</summary><p>No. Nella sezione Locale Nexus funziona anche offline, con i modelli che girano sul tuo PC. Internet serve solo per la sezione Cloud e per cercare online.</p></details>
-        <details><summary>Che computer serve?</summary><p>Con 16 GB di RAM girano bene modelli fino a 9 miliardi di parametri. Con meno memoria si usano modelli più piccoli, oppure il cloud.</p></details>
-        <details><summary>Quanto costerà Nexus al lancio?</summary><p>Nexus sarà accessibile con una formula ad acquisto singolo a un prezzo contenuto, senza abbonamenti mensili ricorrenti.</p></details>
-        <details><summary>Dove finiscono le mie chat?</summary><p>In una cartella sul tuo PC, nei tuoi Documenti. Nexus non ha un server suo e non vede quello che scrivi. In Locale i messaggi non lasciano il computer; in Cloud vanno solo al servizio che hai scelto tu.</p></details>
+        <details><summary>Quando potrò scaricare Nexus?</summary><p>La beta privata è già partita. Iscriviti alla lista d'attesa: quando si libera un posto ti arriva un'email con il codice d'invito (quello che inizia con NEXUS-) e il link per scaricarla.</p></details>
+        <details><summary>Devo sapere cos'è un modello?</summary><p>No. Nexus è fatto per chi non ha mai usato un'IA sul proprio PC: trova da solo i programmi che servono, ti aiuta a installarli e in Automatico sceglie lui il modello giusto per ogni domanda.</p></details>
+        <details><summary>Serve internet per usarlo?</summary><p>No. Nella sezione Locale Nexus funziona anche offline, con i modelli che girano sul tuo PC. Internet serve solo per la sezione Cloud, per cercare online e per gli aggiornamenti.</p></details>
+        <details><summary>Cos'è Code?</summary><p>È la sezione per creare programmi, siti e giochi. Nexus usa Claude Code di Anthropic, un programma che scrive codice, con i modelli Claude (con il tuo account), con quelli di Ollama o di OpenRouter. Se non ce l'hai, Nexus te lo installa con un tasto. Ogni comando passa dal Banco di lavoro, e puoi annullare le modifiche.</p></details>
+        <details><summary>Che computer serve?</summary><p>Per la beta Windows o Linux; il Mac arriva con la versione 1.0. Con 16 GB di RAM girano bene modelli fino a 9 miliardi di parametri. Con meno memoria si usano modelli più piccoli, oppure il cloud.</p></details>
+        <details><summary>Quanto costerà Nexus al lancio?</summary><p>Pochi euro, una volta sola: con l'acquisto hai Nexus per sempre, con gli aggiornamenti. Niente abbonamenti e niente pubblicità.</p></details>
+        <details><summary>Dove finiscono le mie chat?</summary><p>Nella cartella di Nexus sul tuo PC. Nexus non ha un server suo, non vede quello che scrivi e non raccoglie statistiche. In Locale i messaggi non lasciano il computer; in Cloud e in Code vanno solo al servizio che hai scelto tu.</p></details>
       </div>
     </div>
   </section>
